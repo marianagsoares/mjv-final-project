@@ -46,6 +46,7 @@ router.post("/users", async (req: Request, res: Response) => {
       });
     }
   } catch (error) {
+    console.log(error)
     return res.status(400).send({ error: "Não foi possível registrar o usuário" });
   }
 });

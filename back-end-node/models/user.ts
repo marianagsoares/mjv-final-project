@@ -1,5 +1,5 @@
 import mongoose from '../db/database';
-
+import moment from "moment";
 import bcrypt from 'bcrypt';
 
 //criar o schema
@@ -25,8 +25,8 @@ const UserSchema = new mongoose.Schema({
     lowercase: true
   },
   createdAt: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss')
   },
 });
 

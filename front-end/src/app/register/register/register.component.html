@@ -1,0 +1,24 @@
+<div class="login-container">
+    <div class="form-content mat-elevation-z8">
+        <img class="img-mjv" src="assets/images/logo_mjv.png" alt="Logo MJV">
+        <form class="body-form" [formGroup]="registerForm">
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Digite seu nome completo" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="Digite seu e-mail" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>Senha</mat-label>
+                <span class="input-password">
+                    <input type="password"  class="password" matInput placeholder="Digite sua senha" formControlName="password">
+                    <mat-icon (click)="showPassword()">visibility</mat-icon>
+                </span>
+            </mat-form-field>
+            <button class="button-sign-in" type="submit" (click)="createUserWithEmailAndPassword()">Cadastrar</button>
+            <a routerLink="/login" class="register">Iniciar sessão</a>
+        </form>
+    </div>
+</div>

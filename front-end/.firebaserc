@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "intranet-9876b": {
+      "hosting": {
+        "mjv-final-project": [
+          "intranet-9876b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "intranet-9876b"
+  }
+}

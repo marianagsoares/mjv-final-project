@@ -1,0 +1,25 @@
+<div class="login-container">
+    <div class="form-content mat-elevation-z8">
+        <img class="img-mjv" src="assets/images/logo_mjv.png" alt="Logo MJV">
+        <button class="google-sing-in" (click)="signInGoogle()">
+            <img class="img-google" src="assets/images/google.svg" alt="Logo Google">
+            <p>Continuar com o Google</p>
+        </button>
+        <mat-divider></mat-divider>
+        <form class="body-form" [formGroup]="loginForm">
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="Digite seu e-mail" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="form-input" appearance="outline">
+                <mat-label>Senha</mat-label>
+                <span class="input-password">
+                    <input type="password" class="password" matInput placeholder="Digite sua senha" formControlName="password">
+                    <mat-icon (click)="showPassword()">visibility</mat-icon>
+                </span>
+            </mat-form-field>
+            <button class="button-sign-in" type="submit" (click)="signInEmailAndPassword()">Entrar</button>
+            <a href="/register" class="register">Cadastre-se</a>
+        </form>
+    </div>
+</div>

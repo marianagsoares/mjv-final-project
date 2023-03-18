@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   birthday: {
-    type: Date,
+    type: String,
     required: true,
   },
   email: {
@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss')
   },
+  updatedAt: {
+    type: String,
+    default: ""
+  }
 });
 
 

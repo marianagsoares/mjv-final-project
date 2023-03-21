@@ -1,4 +1,4 @@
-import express, { Request, Response} from 'express';
+import express from 'express';
 import body_parser from 'body-parser';
 import authController from './controllers/authController';
 import userManager from './controllers/userManager';
@@ -12,5 +12,5 @@ app.use('/auth', authController);
 app.use(userManager);
 
 app.listen(8080, function(){
-    console.log("servidor rodando porta 8080");
+    console.log("Server running");
 });

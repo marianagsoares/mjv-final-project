@@ -8,8 +8,6 @@ const router = express.Router();
 router.get("/users", async (req: Request, res: Response) => {
     try {
         const allUsers = await User.find();
-        console.log(allUsers);
-
         return res.send(allUsers);
 
     } catch (error) {

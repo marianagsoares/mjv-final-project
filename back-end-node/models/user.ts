@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
   },
   updatedAt: {
     type: String,
-    default: ""
+    default: "Not updated"
   }
 });
 

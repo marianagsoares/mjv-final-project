@@ -8,8 +8,8 @@ const app = express();
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: false}));
 
-app.use('/auth', authController);
-app.use(userController);
+app.use(authController);
+app.use('/authenticated', userController);
 
 app.listen(8080, function(){
     console.log("Server running");

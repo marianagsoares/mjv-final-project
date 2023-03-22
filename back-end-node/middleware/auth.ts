@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import '../config/env';
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
@@ -9,9 +9,12 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
         return res.status(401).send({ error: 'Token is required' });
     }
 
+    const [scheme, token] = authHeader.split(' ');
+    if (!/^Bearer$/i.test(scheme)) return res.status(401).send({ error: 'Token malformatted' });
+
     try {
         const secret = process.env.secret;
-        const [bearer,token ] = authHeader.split(' '); 
+
         jwt.verify(token, secret!);
         next();
     } catch (error) {

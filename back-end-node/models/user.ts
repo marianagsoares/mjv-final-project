@@ -1,5 +1,5 @@
 import mongoose from '../db/database';
-import moment from "moment";
+import moment from 'moment';
 import bcrypt from 'bcrypt';
 
 //criar o schema
@@ -22,7 +22,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
-    lowercase: true
   },
   createdAt: {
     type: String,
@@ -34,12 +33,11 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-
 UserSchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.password, 10)
+    const hash = await bcrypt.hash(this.password, 2);
     this.password = hash;
     next();
-})
+});
 
 const user = mongoose.model("users", UserSchema);
 export default user;

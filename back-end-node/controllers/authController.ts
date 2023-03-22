@@ -1,31 +1,31 @@
-import express, { Request, Response } from "express";
-import User from "../models/user";
-import moment from "moment";
+import express, { Request, Response } from 'express';
+import User from '../models/user';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import '../config/env';
 
 const router = express.Router();
 
-router.post("/users", async (req: Request, res: Response) => {
-  const { email } = req.body;
+router.post('/authenticate', async (req: Request, res: Response) => {
+  const { email, password } = req.body
 
-  try {
-    const emailFound = await User.findOne({ email });
+  const user = await User.findOne({ email }).select('+password');
 
-    if (emailFound) {
-      return res.status(400).send({ error: "User already exists" });
-    } else {
-      req.body.birthday = moment(req.body.birthday).format('DD/MM/YYYY');
-      const registeredUser = await User.create(req.body);
+  if (!user) return res.status(404).send({ error: 'User not found' });
 
-      return res.send({
-        email: registeredUser.email,
-        fullName: registeredUser.fullName,
-        birthday: registeredUser.birthday,
-        createdAt: registeredUser.createdAt
-      });
-    }
-  } catch (error) {
-    return res.status(400).send({ error: "Unable to register user" });
-  }
+  const checkPassword = await bcrypt.compare(password, user.password);
+  if (!checkPassword) return res.status(403).send({ error: 'Invalid password' });
+
+  const secret = process.env.secret;
+  const token = jwt.sign(
+    { _id: user.id },
+    secret!,
+    { expiresIn: '86400s' }
+  );
+  return res.send({
+    message: 'Successfully authenticated',
+    accessToken: token
+  });
 });
 
 export default (router);

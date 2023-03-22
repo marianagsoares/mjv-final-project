@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://127.0.0.1/register_system").then(() => {
-    console.log("Conectado ao banco de dados");
+    console.log("Conected to database");
   }).catch((error) => {
-    console.log(`Erro: ${error}`);
+    console.log(`Error: ${error}`);
   });
 
 export default mongoose;

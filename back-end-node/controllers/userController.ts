@@ -2,14 +2,15 @@ import { ObjectId } from "bson";
 import express, { Request, Response } from "express";
 import User from "../models/user";
 import moment from "moment";
+import auth from '../middleware/auth'
 
 const router = express.Router();
+
+router.use(auth);
 
 router.get("/users", async (req: Request, res: Response) => {
     try {
         const allUsers = await User.find();
-        console.log(allUsers);
-
         return res.send(allUsers);
 
     } catch (error) {
@@ -29,6 +30,30 @@ router.get("/users/:id", async (req: Request, res: Response) => {
 
     } catch (error) {
         return res.status(400).send({ error: "Unable to list user" });
+    }
+});
+
+router.post("/users", async (req: Request, res: Response) => {
+    const { email, fullName, birthday, password } = req.body;
+
+    try {
+        const emailFound = await User.findOne({ email });
+
+        if (emailFound) {
+            return res.status(400).send({ error: "User already exists" });
+
+        } else if (!fullName || !birthday || !password) {
+            return res.status(422).send({ error: 'Fill all the mandatory fields' });
+
+        } else {
+            req.body.birthday = moment(req.body.birthday).format('DD/MM/YYYY');
+            await User.create(req.body);
+            const registeredUser = await User.findOne({ email });
+
+            return res.send({ registeredUser });
+        }
+    } catch (error) {
+        return res.status(400).send({ error: "Unable to register user" });
     }
 });
 

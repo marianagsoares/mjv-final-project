@@ -28,4 +28,22 @@ router.post('/authenticate', async (req: Request, res: Response) => {
   });
 });
 
+router.post('/authenticate', async (req: Request, res: Response) => {
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) return res.status(404).send({ error: 'User not found' });
+
+  const checkPassword = await bcrypt.compare(password, user.password);
+  if (!checkPassword) return res.status(401).send({ error: 'Invalid password' });
+
+  return res.send({
+    email: user.email,
+    fullName: user.fullName,
+    birthday: user.birthday,
+    createdAt: user.createdAt
+  });
+});
+
 export default (router);

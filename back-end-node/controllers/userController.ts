@@ -1,24 +1,24 @@
 import { ObjectId } from "bson";
-import express, { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import User from "../models/user";
 import moment from "moment";
 import auth from '../middleware/auth'
 
-const router = express.Router();
+const router = Router();
 
 router.use(auth);
 
-router.get("/users", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
     try {
         const allUsers = await User.find();
         return res.send(allUsers);
 
     } catch (error) {
-        return res.status(404).json({ error: "Unable to list users" });
+        return res.status(404).send({ error: "Unable to list users" });
     }
 });
 
-router.get("/users/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -33,7 +33,7 @@ router.get("/users/:id", async (req: Request, res: Response) => {
     }
 });
 
-router.post("/users", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
     const { email, fullName, birthday, password } = req.body;
 
     if (!fullName || !birthday || !password || !email) {
@@ -58,7 +58,7 @@ router.post("/users", async (req: Request, res: Response) => {
     }
 });
 
-router.patch("/users/:id", async (req: Request, res: Response) => {
+router.patch("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -78,7 +78,7 @@ router.patch("/users/:id", async (req: Request, res: Response) => {
     }
 });
 
-router.delete("/users/:id", async function (req: Request, res: Response) {
+router.delete("/:id", async function (req: Request, res: Response) {
     const { id } = req.params;
 
     try {

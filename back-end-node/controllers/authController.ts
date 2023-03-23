@@ -10,7 +10,6 @@ router.post('/authenticate', async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email }).select('+password');
-  console.log(user);
 
   if (!user) return res.status(404).send({ error: 'User not found' });
 

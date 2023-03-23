@@ -1,16 +1,17 @@
 import express from 'express';
 import body_parser from 'body-parser';
-import authController from './controllers/authController';
-import userController from './controllers/userController';
+import cors from 'cors';
+import routes from './index';
+
 
 const app = express();
 
+app.use(cors());
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: false}));
+app.use(routes);
 
-app.use(authController);
-app.use('/authenticated', userController);
-
-app.listen(8080, function(){
+const port = 3000
+app.listen(port, function(){
     console.log("Server running");
 });

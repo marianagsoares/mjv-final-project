@@ -6,7 +6,7 @@ import '../config/env';
 
 const router = express.Router();
 
-router.post('/authenticate', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email }).select('+password');
@@ -14,7 +14,7 @@ router.post('/authenticate', async (req: Request, res: Response) => {
   if (!user) return res.status(404).send({ error: 'User not found' });
 
   const checkPassword = await bcrypt.compare(password, user.password);
-  if (!checkPassword) return res.status(403).send({ error: 'Invalid password' });
+  if (!checkPassword) return res.status(401).send({ error: 'Invalid password' });
 
   const secret = process.env.secret;
   const token = jwt.sign(

@@ -51,7 +51,7 @@ router.post("/", async (req: Request, res: Response) => {
             await User.create(req.body);
             const registeredUser = await User.findOne({ email });
 
-            return res.send({ registeredUser });
+            return res.status(201).send({ registeredUser });
         }
     } catch (error) {
         return res.status(400).send({ error: "Unable to register user" });

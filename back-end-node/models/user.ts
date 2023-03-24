@@ -2,7 +2,6 @@ import mongoose from '../db/database';
 import moment from 'moment';
 import bcrypt from 'bcrypt';
 
-//criar o schema
 const UserSchema = new mongoose.Schema({
   fullName: {
     type: String,

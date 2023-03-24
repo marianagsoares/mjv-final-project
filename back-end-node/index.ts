@@ -4,7 +4,7 @@ import userController from './controllers/userController';
 
 const router = Router();
 
-router.use(authController);
+router.use('/authenticate', authController);
 router.use('/users', userController);
 
 export default (router);

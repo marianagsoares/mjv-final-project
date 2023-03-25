@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import User from '../models/user';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import '../config/env';
+import '../shared/generateToken'
+import generateToken from '../shared/generateToken';
 
 const router = express.Router();
 
@@ -16,15 +16,9 @@ router.post('/', async (req: Request, res: Response) => {
   const checkPassword = await bcrypt.compare(password, user.password);
   if (!checkPassword) return res.status(401).send({ error: 'Invalid password' });
 
-  const secret = process.env.secret;
-  const token = jwt.sign(
-    { _id: user.id },
-    secret!,
-    { expiresIn: '86400s' }
-  );
   return res.send({
     message: 'Successfully authenticated',
-    accessToken: token
+    accessToken: generateToken({ _id: user.id })
   });
 });
 

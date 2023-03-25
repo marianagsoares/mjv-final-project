@@ -11,7 +11,7 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({extended: false}));
 app.use(routes);
 
-const port = 3000
+const port = 3000;
 app.listen(port, function(){
     console.log("Server running");
 });

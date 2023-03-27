@@ -7,7 +7,7 @@ import generateToken from '../shared/generateToken';
 
 const router = Router();
 
-router.post("/register/", async (req: Request, res: Response) => {
+router.post("/register", async (req: Request, res: Response) => {
     const { email, fullName, birthday, password } = req.body;
 
     if (!fullName || !birthday || !password || !email) {
@@ -63,7 +63,7 @@ router.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-router.patch("/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {

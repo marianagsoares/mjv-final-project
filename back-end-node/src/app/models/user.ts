@@ -1,4 +1,4 @@
-import mongoose from '../db/database';
+import mongoose from '../../db/database';
 import moment from 'moment';
 import bcrypt from 'bcrypt';
 

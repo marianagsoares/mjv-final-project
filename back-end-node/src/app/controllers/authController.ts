@@ -4,6 +4,9 @@ import bcrypt from 'bcrypt';
 import '../shared/generateToken'
 import generateToken from '../shared/generateToken';
 import crypto from 'crypto';
+import '../../config/env';
+import transport from '../models/mailer';
+
 const router = express.Router();
 
 router.post('/', async (req: Request, res: Response) => {
@@ -41,9 +44,25 @@ router.post('/forgot_password', async (req, res) => {
         passwordResetExpires: dateNow
       }
     });
+
+    transport.sendMail({
+      from: `MJV API <${process.env.user_email}>`,
+      to: email,
+      subject: 'Change password',
+      text: 'Email sent by Nodemailer',
+      html:  `Token to change password is ${ token }`
+  })
+  .catch((error) => {
+    res.status(400).send({ error: 'cannot send email' })
+  });
+
   } catch (error) {
     res.status(400).send({ error: 'Error on forgot password' });
   }
+
+  res.send({ message: 'Email successfully sent' }) ;
 });
+
+router.post('/reset_password')
 
 export default (router);

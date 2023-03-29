@@ -70,6 +70,7 @@ router.put("/:id", async (req: Request, res: Response) => {
         const userFound = await User.findOne({ _id: new ObjectId(id) });
 
         if (userFound) {
+
             req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
             await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
 

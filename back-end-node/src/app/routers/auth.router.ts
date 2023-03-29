@@ -35,34 +35,27 @@ router.post('/forgot_password', async (req, res) => {
 
     const token = crypto.randomBytes(10).toString('hex');
 
-    const dateNow = new Date();
-    dateNow.setMinutes(dateNow.getMinutes() + 30);
+    const expirationDate = new Date();
+    expirationDate.setMinutes(expirationDate.getMinutes() + 30);
 
     await User.updateOne({ _id: user.id }, {
       '$set': {
         passwordResetToken: token,
-        passwordResetExpires: dateNow
+        tokenExpirationDate: expirationDate
       }
     });
 
-    transport.sendMail({
-      from: `MJV API <${process.env.user_email}>`,
-      to: email,
-      subject: 'Change password',
-      text: 'Email sent by Nodemailer',
-      html:  `Token to change password is ${ token }`
-  })
-  .catch((error) => {
-    res.status(400).send({ error: 'cannot send email' })
-  });
+      transport.sendMail({
+        from: `MJV API <${process.env.user_email}>`,
+        to: email,
+        subject: 'Change password official test',
+        text: 'Email sent by Nodemailer',
+        html: `Token to change password is ${token}`
+      });
 
   } catch (error) {
-    res.status(400).send({ error: 'Error on forgot password' });
+    return res.status(400).send({ error: 'Error on forgot password' });
   }
-
-  res.send({ message: 'Email successfully sent' }) ;
+  return res.send({ message: 'Email successfully sent' });
 });
-
-router.post('/reset_password')
-
 export default (router);

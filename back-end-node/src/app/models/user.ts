@@ -47,28 +47,5 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-type Update = {
-  getUpdate: () => User
-}
-
-type User = {
-  $set: {
-    password: string,
-    fullName: string,
-    email: string,
-    updatedAt: Date
-  }
-}
-
-UserSchema.pre('updateOne', async function (this: Update, next) {
-  console.log('UPDATE ONE');
-  let { password } = this.getUpdate().$set
-  console.log(password)
-  const hash = await bcrypt.hash(password, 10);
-  this.getUpdate().$set.password = hash;
-  console.log(hash, 'PASSWORD')
-  next();
-});
-
 const user = mongoose.model("users", UserSchema);
 export default user;

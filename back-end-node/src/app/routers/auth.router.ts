@@ -69,8 +69,8 @@ router.post('/reset_password', async (req: Request, res: Response) => {
     if (!user)
       return res.status(404).send({ error: 'Cannot find user' });
 
-    //if(token != user.passwordResetToken!)
-    //return res.status(400).send({ error: 'invalid token' });
+    if(token != user.passwordResetToken!)
+    return res.status(400).send({ error: 'invalid token' });
 
     const now = new Date();
     console.log(now)

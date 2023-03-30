@@ -63,9 +63,13 @@ router.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-router.put("/:id", async (req: Request, res: Response) => {
+router.patch("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     const { email, password } = req.body;
+
+    if (password) {
+        return res.status(400).send({ error: 'Operation not allowed' });
+    };
 
     try {
         const userFound = await User.findOne({ _id: new ObjectId(id) });

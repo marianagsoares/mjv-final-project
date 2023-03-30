@@ -23,7 +23,7 @@ router.post("/register", async (req: Request, res: Response) => {
 
         } else {
             req.body.birthday = moment(req.body.birthday).format('DD/MM/YYYY');
-            const teste = await User.create(req.body);
+            await User.create(req.body);
 
             const registeredUser = await User.findOne({ email });
 
@@ -66,7 +66,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 router.put("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     try {
         const userFound = await User.findOne({ _id: new ObjectId(id) });
@@ -91,9 +91,9 @@ router.put("/:id", async (req: Request, res: Response) => {
                     req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
                     await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
 
-                     const updatedUser = await User.findOne({ _id: new ObjectId(id) });
+                    const updatedUser = await User.findOne({ _id: new ObjectId(id) });
 
-                     return res.send(updatedUser);
+                    return res.send(updatedUser);
                 }
             }
 
@@ -102,7 +102,7 @@ router.put("/:id", async (req: Request, res: Response) => {
         }
 
     } catch (error) {
-       return res.status(400).send({ error: "Cannot update user" });
+        return res.status(400).send({ error: "Cannot update user" });
     }
 });
 

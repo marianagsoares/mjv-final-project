@@ -49,7 +49,7 @@ router.post('/forgot_password', async (req, res) => {
         from: `MJV API <${process.env.user_email}>`,
         to: email,
         subject: 'Change password',
-        text: 'Email sent by Nodemailer',
+        text: 'Email sent by MJV API',
         html: `Token to change password is ${token}`
       });
 
@@ -69,7 +69,11 @@ router.post('/reset_password', async (req: Request, res: Response) => {
     if (!user)
       return res.status(404).send({ error: 'Cannot find user' });
 
+    //if(token !== user.passwordResetToken!)
+   // return res.status(400).send({ error: 'invalid token' });
+
     const now = new Date();
+    console.log(now)
     if (now > user.tokenExpirationDate!)
       return res.status(400).send({ error: 'Token expired, generate a new one' });
 

@@ -4,6 +4,7 @@ import User from "../models/user";
 import moment from "moment";
 import auth from '../middleware/auth';
 import generateToken from '../shared/generateToken';
+import user from "../models/user";
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.post("/register", async (req: Request, res: Response) => {
     const { email, fullName, birthday, password } = req.body;
 
     if (!fullName || !birthday || !password || !email) {
-        return res.status(422).send({ error: 'Fill all the mandatory fields' });
+        return res.status(422).send({ error: 'Fill the mandatory fields' });
     }
 
     try {
@@ -32,7 +33,7 @@ router.post("/register", async (req: Request, res: Response) => {
             });
         }
     } catch (error) {
-        return res.status(400).send({ error: "Unable to register user" });
+        return res.status(400).send({ error: "Cannot register user" });
     }
 });
 
@@ -44,7 +45,7 @@ router.get("/", async (req: Request, res: Response) => {
         return res.send(allUsers);
 
     } catch (error) {
-        return res.status(404).send({ error: "Unable to list users" });
+        return res.status(404).send({ error: "Cannot list users" });
     }
 });
 
@@ -59,30 +60,49 @@ router.get("/:id", async (req: Request, res: Response) => {
         return res.status(404).send({ error: "User not found" });
 
     } catch (error) {
-        return res.status(400).send({ error: "Unable to list user" });
+        return res.status(400).send({ error: "Cannot list user" });
     }
 });
 
 router.put("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
+    const { email } = req.body;
 
     try {
         const userFound = await User.findOne({ _id: new ObjectId(id) });
 
         if (userFound) {
+            if (req.body.email === userFound.email) {
 
-            req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
-            await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+                req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
+                await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
 
-            const updatedUser = await User.findOne({ _id: new ObjectId(id) });
+                const updatedUser = await User.findOne({ _id: new ObjectId(id) });
 
-            return res.send(updatedUser);
+                return res.send(updatedUser);
+
+            } else {
+                const emailFound = await User.findOne({ email });
+
+                if (emailFound) {
+                    return res.status(400).send({ error: 'Email already registered' });
+
+                } else {
+                    req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
+                    await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+
+                     const updatedUser = await User.findOne({ _id: new ObjectId(id) });
+
+                     return res.send(updatedUser);
+                }
+            }
+
+        } else {
+            return res.status(404).send({ error: "User not found" });
         }
 
-        return res.status(404).send({ error: "User not found" });
-
     } catch (error) {
-        return res.status(400).send({ error: "Unable to update user" });
+       return res.status(400).send({ error: "Cannot update user" });
     }
 });
 
@@ -99,7 +119,7 @@ router.delete("/:id", async function (req: Request, res: Response) {
         return res.status(404).send({ error: "User not found" });
 
     } catch (error) {
-        return res.status(400).send({ error: "Unable to delete user" });
+        return res.status(400).send({ error: "Cannot delete user" });
     }
 });
 

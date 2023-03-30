@@ -40,30 +40,34 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function (next) {
   console.log('SAVE')
-    const hash = await bcrypt.hash(this.password, 10);
-    this.password = hash;
-    next();
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+  next();
 });
 
-type Update = { 
+type Update = {
   getUpdate: () => User
 }
 
 type User = {
   $set: {
-    password: string
+    password: string,
+    fullName: string,
+    email: string,
+    updatedAt: Date
   }
 }
 
-UserSchema.pre('updateOne', async function(this: Update, next) {
- let { password } = this.getUpdate().$set
-    const hash = await bcrypt.hash(password, 10);
-    console.log(hash, 'HASH')
-    password = hash;
-   console.log(password, 'PASSWORD')
-    next();
+UserSchema.pre('updateOne', async function (this: Update, next) {
+  console.log('UPDATE ONE');
+  let { password } = this.getUpdate().$set
+  console.log(password)
+  const hash = await bcrypt.hash(password, 10);
+  this.getUpdate().$set.password = hash;
+  console.log(hash, 'PASSWORD')
+  next();
 });
 
 const user = mongoose.model("users", UserSchema);

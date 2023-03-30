@@ -4,7 +4,6 @@ import User from "../models/user";
 import moment from "moment";
 import auth from '../middleware/auth';
 import generateToken from '../shared/generateToken';
-import user from "../models/user";
 
 const router = Router();
 

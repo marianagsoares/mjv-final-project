@@ -1,13 +1,13 @@
 import { ObjectId } from "bson";
 import { Request, Response, Router } from "express";
-import User from "../models/user";
+import User from "../models/user.model";
 import moment from "moment";
 import auth from '../middleware/auth';
-import generateToken from '../shared/generateToken';
+import generateToken from "../shared/generateToken";
 
 const router = Router();
 
-router.post("/register", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
     const { email, fullName, birthday, password } = req.body;
 
     if (!fullName || !birthday || !password || !email) {

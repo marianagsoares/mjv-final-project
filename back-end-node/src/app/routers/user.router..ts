@@ -4,6 +4,7 @@ import User from "../models/user.model";
 import moment from "moment";
 import auth from '../middleware/auth.middleware';
 import generateToken from "../shared/generateToken";
+import userService from "../service/user.service";
 
 const router = Router();
 
@@ -39,13 +40,8 @@ router.post("/", async (req: Request, res: Response) => {
 router.use(auth);
 
 router.get("/", async (req: Request, res: Response) => {
-    try {
-        const allUsers = await User.find();
-        return res.send(allUsers);
-
-    } catch (error) {
-        return res.status(404).send({ error: "Cannot list users" });
-    }
+    const users = await userService.getAll();
+    return res.send(users);
 });
 
 router.get("/:id", async (req: Request, res: Response) => {

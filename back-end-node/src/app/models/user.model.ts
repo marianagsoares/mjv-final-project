@@ -47,4 +47,16 @@ UserSchema.pre('save', async function (next) {
 });
 
 const user = mongoose.model("users", UserSchema);
+
+export interface IUser {
+  fullName: string,
+  email: string,
+  password: string,
+  birthday: string,
+  createdAt: string,
+  passwordResetToken?: string,
+  tokenExpirationDate?: string,
+  updatedAt?: string
+}
+
 export default user;

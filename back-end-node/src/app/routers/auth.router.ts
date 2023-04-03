@@ -1,15 +1,15 @@
 import express, { Request, Response } from 'express';
-import User from '../models/user';
+import User from '../models/user.model';
 import bcrypt from 'bcrypt';
 import '../shared/generateToken'
 import generateToken from '../shared/generateToken';
 import crypto from 'crypto';
 import '../../config/env';
-import transport from '../models/mailer';
+import transport from '../models/mailer.model';
 
 const router = express.Router();
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/authenticate', async (req: Request, res: Response) => {
   const { email, password } = req.body
 
   const user = await User.findOne({ email }).select('+password');

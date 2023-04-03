@@ -48,14 +48,11 @@ router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const userFound = await User.findOne({ _id: new ObjectId(id) });
+        const userFound = await userService.getById(id);
+        return res.send(userFound);
 
-        if (userFound) return res.send(userFound);
-
-        return res.status(404).send({ error: "User not found" });
-
-    } catch (error) {
-        return res.status(400).send({ error: "Cannot list user" });
+    } catch (error: any) {
+        return res.status(error.getStatusCode()).send({ message: error.message });
     }
 });
 

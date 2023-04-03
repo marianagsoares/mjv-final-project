@@ -2,7 +2,7 @@ import { ObjectId } from "bson";
 import { Request, Response, Router } from "express";
 import User from "../models/user.model";
 import moment from "moment";
-import auth from '../middleware/auth';
+import auth from '../middleware/auth.middleware';
 import generateToken from "../shared/generateToken";
 
 const router = Router();

@@ -10,7 +10,7 @@ const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
     try {
-        const userCreated = await userService.create(req.body);
+        const userCreated = await userService.createUser(req.body);
         return res.send(userCreated);
 
     } catch(error: any) {
@@ -21,7 +21,7 @@ router.post("/", async (req: Request, res: Response) => {
 router.use(auth);
 
 router.get("/", async (req: Request, res: Response) => {
-    const users = await userService.getAll();
+    const users = await userService.getAllUsers();
     return res.send(users);
 });
 
@@ -29,7 +29,7 @@ router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const userFound = await userService.getById(id);
+        const userFound = await userService.getUserById(id);
         return res.send(userFound);
 
     } catch (error: any) {
@@ -39,47 +39,12 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 router.patch("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { email, password } = req.body;
+    try{
+        const userUpdated = await userService.updateUser(req.body, id)
+        res.send(userUpdated);
 
-    if (password) {
-        return res.status(400).send({ error: 'Operation not allowed' });
-    };
-
-    try {
-        const userFound = await User.findOne({ _id: new ObjectId(id) });
-
-        if (userFound) {
-            if (req.body.email === userFound.email) {
-
-                req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
-                await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
-
-                const updatedUser = await User.findOne({ _id: new ObjectId(id) });
-
-                return res.send(updatedUser);
-
-            } else {
-                const emailFound = await User.findOne({ email });
-
-                if (emailFound) {
-                    return res.status(400).send({ error: 'Email already registered' });
-
-                } else {
-                    req.body.updatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
-                    await User.updateOne({ _id: new ObjectId(id) }, { $set: req.body });
-
-                    const updatedUser = await User.findOne({ _id: new ObjectId(id) });
-
-                    return res.send(updatedUser);
-                }
-            }
-
-        } else {
-            return res.status(404).send({ error: "User not found" });
-        }
-
-    } catch (error) {
-        return res.status(400).send({ error: "Cannot update user" });
+    } catch(error: any) {
+        return res.status(error.getStatusCode()).send({ message: error.message});
     }
 });
 

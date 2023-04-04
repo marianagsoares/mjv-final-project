@@ -31,7 +31,7 @@ class UserService {
     async create(user: IUser) {
 
         const { email, fullName, birthday, password } = user;
-
+        
         if (!fullName || !birthday || !password || !email) {
             throw new InsuficientParamsError('Fill the mandatory fields');
         }
@@ -42,15 +42,13 @@ class UserService {
         }
 
         try {
-            user.birthday = moment(user.birthday).format('DD/MM/YYYY');
-            await User.create(user);
+            const formattedBirthday = moment(birthday).format('DD/MM/YYYY');
+            await User.create({...user, birthday: formattedBirthday});
 
             const registeredUser = await User.findOne({ email });
+            const accessToken =  generateToken({ _id: registeredUser?.id! });
 
-            return {
-                registeredUser,
-                accessToken: generateToken({ _id: registeredUser!.id })
-            };
+            return { registeredUser, accessToken };
         } catch (error) {
             throw new BadRequestError('Unable to register user');
         }

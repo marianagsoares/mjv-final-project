@@ -9,31 +9,12 @@ import userService from "../service/user.service";
 const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
-    const { email, fullName, birthday, password } = req.body;
-
-    if (!fullName || !birthday || !password || !email) {
-        return res.status(422).send({ error: 'Fill the mandatory fields' });
-    }
-
     try {
-        const emailFound = await User.findOne({ email });
+        const userCreated = await userService.create(req.body);
+        return res.send(userCreated);
 
-        if (emailFound) {
-            return res.status(400).send({ error: "User already exists" });
-
-        } else {
-            req.body.birthday = moment(req.body.birthday).format('DD/MM/YYYY');
-            await User.create(req.body);
-
-            const registeredUser = await User.findOne({ email });
-
-            return res.status(201).send({
-                registeredUser,
-                accessToken: generateToken({ _id: registeredUser!.id })
-            });
-        }
-    } catch (error) {
-        return res.status(400).send({ error: "Cannot register user" });
+    } catch(error: any) {
+        return res.status(error.getStatusCode()).send({ message: error.message });
     }
 });
 

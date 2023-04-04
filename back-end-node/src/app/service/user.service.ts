@@ -1,7 +1,10 @@
-import User from "../models/user.model";
+import User, { IUser } from "../models/user.model";
 import { ObjectId } from "bson";
 import { NotFoundError } from "../errors/notFound.error";
 import { BadRequestError } from "../errors/badRequest.error";
+import { InsuficientParamsError } from "../errors/insuficientParams.error";
+import generateToken from "../shared/generateToken";
+import moment from "moment";
 
 class UserService {
     async getAll() {
@@ -11,7 +14,7 @@ class UserService {
 
     async getById(id: string) {
         let userFound;
-        
+
         try {
             userFound = await User.findOne({ _id: new ObjectId(id) });
         } catch {
@@ -19,11 +22,37 @@ class UserService {
         }
 
         if (userFound) {
-            console.log("TESTE DO USUARIO");
             return userFound;
         } else {
-            console.log("ENTROU NO ERRO");
             throw new NotFoundError('User not found');
+        }
+    }
+
+    async create(user: IUser) {
+
+        const { email, fullName, birthday, password } = user;
+
+        if (!fullName || !birthday || !password || !email) {
+            throw new InsuficientParamsError('Fill the mandatory fields');
+        }
+
+        const emailFound = await User.findOne({ email });
+        if (emailFound) {
+            throw new BadRequestError('User already exists');
+        }
+
+        try {
+            user.birthday = moment(user.birthday).format('DD/MM/YYYY');
+            await User.create(user);
+
+            const registeredUser = await User.findOne({ email });
+
+            return {
+                registeredUser,
+                accessToken: generateToken({ _id: registeredUser!.id })
+            };
+        } catch (error) {
+            throw new BadRequestError('Unable to register user');
         }
     }
 }

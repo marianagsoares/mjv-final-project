@@ -21,32 +21,40 @@ class UserService {
             throw new BadRequestError('Invalid id');
         }
 
-        if (userFound) {
+        if (userFound)
             return userFound;
 
-        } else {
-            throw new NotFoundError('User not found');
+        throw new NotFoundError('User not found');
+    }
+
+    async getUserByEmail(email: string) {
+        let userFound;
+
+        try {
+            userFound = await User.findOne({ email });
+        } catch (error) {
+            throw new BadRequestError('Invalid email');
         }
+
+        return userFound;
     }
 
     async createUser(user: IUser) {
-
         const { email, fullName, birthday, password } = user;
 
-        if (!fullName || !birthday || !password || !email) {
+        if (!fullName || !birthday || !password || !email)
             throw new InsuficientParamsError('Fill the mandatory fields');
-        }
 
-        const emailFound = await User.findOne({ email });
-        if (emailFound) {
+        const userFound = await this.getUserByEmail(email);
+
+        if (userFound)
             throw new BadRequestError('User already exists');
-        }
 
         try {
             const formattedBirthday = moment(birthday).format('DD/MM/YYYY');
             await User.create({ ...user, birthday: formattedBirthday });
 
-            const registeredUser = await User.findOne({ email });
+            const registeredUser = await this.getUserByEmail(email);
             const accessToken = generateToken({ _id: registeredUser?.id! });
 
             return { registeredUser, accessToken };
@@ -56,36 +64,41 @@ class UserService {
     }
 
     async updateUser(user: IUser, id: string) {
-        const { email, password } = user;
+        const { email, password, birthday } = user;
 
-        if (password) {
+        if (password)
             throw new BadRequestError('Operation not allowed');
+
+        const userFound = await this.getUserById(id);
+
+        if (email !== userFound.email) {
+            const userFound = await this.getUserByEmail(email);
+
+            if (userFound)
+                throw new BadRequestError('User already exists');
         }
 
-        const userFound = await User.findOne({ _id: new ObjectId(id) });
+        try {
+            const formattedBirthday = birthday ? moment(birthday).format('DD/MM/YYYY') : userFound.birthday;
 
-            if (!userFound) {
-                throw new NotFoundError('User not found');
-            }
+            await User.updateOne({ _id: new ObjectId(id) }, { $set: { ...user, birthday: formattedBirthday } });
 
-            if (email !== userFound.email) {
-                const emailFound = await User.findOne({ email });
-                if (emailFound) {
-                    throw new BadRequestError('User already registered');
-                }
-            }
-
-            try {
-            user.birthday = moment(user.birthday).format('DD/MM/YYYY');
-            await User.updateOne({ _id: new ObjectId(id) }, { $set: user });
-
-            const userUpdated = await User.findOne({ _id: new ObjectId(id) });
-
+            const userUpdated = await this.getUserById(id);
             return userUpdated;
-
         } catch {
             throw new BadRequestError('Unable to update user');
         }
+    }
+
+    async deleteUser(id: string) {
+        const userFound = await this.getUserById(id);
+
+        try {
+            await User.deleteOne({ _id: new ObjectId(userFound.id) });
+        } catch (error) {
+            throw new BadRequestError('Unable to delete user');
+        }
+
     }
 }
 

@@ -5,13 +5,13 @@
 
 ## 📗 About
 
-<p>API developed for user authentication and management and product management</p>
+----
 
----
+<p>#</p>
 
 ## 💻 Tecnologies
 
----
+----
 
  <div align="center" >
      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" height="50"/>
@@ -43,7 +43,7 @@
 
 ## 📌 Run the project
 
----
+----
 
 ```bash
 # Clone the remote repository
@@ -66,9 +66,9 @@ $ npm install
 $ npm start
 ```
 
-## 🙋‍♀️ Authoress
+## 🖋 Authoress
 
----
+----
 
 <p align="center">Developed by Mariana Galindo</p>
 <div align="center">

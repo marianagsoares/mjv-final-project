@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import auth from '../middleware/auth.middleware';
-import userService from "../service/user.service";
+import userService from "../services/user.service";
 
 const router = Router();
 

@@ -1,7 +1,10 @@
 import { Request, Response, Router } from "express";
 import productService from "../services/product.service";
+import auth from '../middleware/auth.middleware';
 
 const router = Router();
+
+router.use(auth);
 
 router.get('/', async (req: Request, res: Response) => {
     try {

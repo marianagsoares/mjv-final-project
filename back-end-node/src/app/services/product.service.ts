@@ -56,10 +56,16 @@ class ProductService {
 
     async updateProduct(id: string, product: Product) {
 
+        const { code } = product;
+
         const ProductFound = await this.getProductById(id);
 
         if (!ProductFound)
-            throw new BadRequestError('Product does not exists');
+            throw new NotFoundError('Product not found');
+
+        if(ProductFound.code !== code){
+            throw new BadRequestError('Invalid product code')
+        }
 
         try {
             await productRepository.update(id, product);

@@ -3,6 +3,7 @@ import body_parser from 'body-parser';
 import cors from 'cors';
 import routes from './src/app/middleware/routes.middleware';
 import './src/config/env';
+import connection from './src/config/database';
 
 
 const app = express();
@@ -30,6 +31,10 @@ app.use(body_parser.urlencoded({ extended: false }));
 app.use(routes);
 
 const port = process.env.LIST_PORT;
-app.listen(port, () => {
-    console.log("Server running");
+
+connection.then(() => {
+    console.log('Conected to database');
+    app.listen(port, () => {
+        console.log(`Server is running on port: ${port}`);
+    });
 });

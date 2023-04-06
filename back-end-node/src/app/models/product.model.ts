@@ -1,6 +1,6 @@
-import mongoose from '../../db/database';
+import mongoose, { Schema } from 'mongoose';
 
-const ProductSchema = new mongoose.Schema({
+const productSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -26,14 +26,14 @@ const ProductSchema = new mongoose.Schema({
   }
 });
 
-const product = mongoose.model('product', ProductSchema);
+const Product = mongoose.model('Product', productSchema);
 
 export interface IProduct {
-    name: string,
-    description: string,
-    amount: number,
-    code: string,
-    brand: string
+  name: string,
+  description: string,
+  amount: number,
+  code: string,
+  brand: string
 }
 
-export default product;
+export default Product;

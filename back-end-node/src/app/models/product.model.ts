@@ -1,7 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { InferSchemaType, Schema } from 'mongoose';
 
 const productSchema = new Schema({
   name: {
+    type: String,
+    required: true,
+    lowercase: true
+  },
+  image: {
     type: String,
     required: true,
     lowercase: true
@@ -19,21 +24,17 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
-  code:{
+  code: {
     type: String,
     required: true,
     unique: true
+  },
+  price: {
+    type: Number,
+    required: true,
   }
 });
 
-const Product = mongoose.model('Product', productSchema);
+export const Product = mongoose.model('Product', productSchema);
 
-export interface IProduct {
-  name: string,
-  description: string,
-  amount: number,
-  code: string,
-  brand: string
-}
-
-export default Product;
+export type Product = InferSchemaType<typeof productSchema>;

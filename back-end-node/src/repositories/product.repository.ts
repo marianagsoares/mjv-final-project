@@ -1,4 +1,4 @@
-import Product from '../app/models/product.model';
+import { Product } from '../app/models/product.model';
 
 class ProductRepository {
     getAll() {
@@ -8,12 +8,16 @@ class ProductRepository {
     getById(id: string) { 
         return Product.findOne({ _id: id });
     }
+
+    getByCode(code: string){
+        return Product.findOne({ code: code });
+    }
     
-    create(product: typeof Product){
+    create(product: Product){
         return Product.create(product);
     }
 
-    update(id: string, product: Partial<typeof Product>){
+    update(id: string, product: Partial<Product>){
         return Product.updateOne({ _id: id }, { $set: product});
     }
 

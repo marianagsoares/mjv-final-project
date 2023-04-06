@@ -36,7 +36,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const productUpdated = await productService.updateProduct(req.body, id);
+        const productUpdated = await productService.updateProduct(id, req.body);
 
         res.send(productUpdated);
     } catch (error: any) {

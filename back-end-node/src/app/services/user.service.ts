@@ -39,7 +39,7 @@ class UserService {
     }
 
     async createUser(user: User) {
-        const { email, birthday } = user;
+        const { email } = user;
 
         if (!user) {
             throw new InsuficientParamsError('Fill the mandatory fields');
@@ -81,6 +81,7 @@ class UserService {
             await userRepository.update(id, user);
 
             const userUpdated = await this.getUserById(id);
+
             return userUpdated;
         } catch {
             throw new BadRequestError('Unable to update user');
@@ -95,7 +96,6 @@ class UserService {
         } catch (error) {
             throw new BadRequestError('Unable to delete user');
         }
-
     }
 }
 

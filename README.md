@@ -4,18 +4,15 @@
  </div>
 
 ## 📗 About
----
 
 <p>Welcome to API rest project developed in MJV nodejs School. So, let me describe it for you.
 
-imagine a robust, reliable, and user-friendly API that allows businesses to manage their customers and products in one place.
-
+Imagine a robust, reliable, and user-friendly API that allows businesses to manage their customers and products in one place.
 With this API, businesses can create, get, update and delete user and product. It offers a range of features including user authentication, and authorization and error handling.</p>
 
 <br></br>
 
 ## 💻 Tecnologies
----
 
  <div>
      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" height="50"/>
@@ -48,7 +45,6 @@ With this API, businesses can create, get, update and delete user and product. I
 <br></br>
 
 ## 📌 Run the project
----
 
 ```bash
 # Clone the remote repository
@@ -73,7 +69,6 @@ $ npm start
 
 <br></br>
 ## 🖋 Authoress
----
 
 <p align="center">Developed by Mariana Galindo</p>
 <div align="center">

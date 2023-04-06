@@ -29,7 +29,7 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(routes);
 
-const port = process.env.listOnPort;
-app.listen(port, function () {
+const port = process.env.LIST_PORT;
+app.listen(port, () => {
     console.log("Server running");
 });

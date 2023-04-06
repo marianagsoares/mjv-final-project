@@ -2,12 +2,12 @@ import nodemailer from 'nodemailer';
 
 
 var transport = nodemailer.createTransport({
-    host: process.env.host,
-    port: Number(process.env.port),
+    host: process.env.HOST,
+    port: Number(process.env.PORT),
     secure: true,
     auth: {
-        user: process.env.user_email,
-        pass: process.env.user_password
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
     }
 });
 

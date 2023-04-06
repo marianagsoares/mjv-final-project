@@ -13,7 +13,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     if (!/^Bearer$/i.test(scheme)) return res.status(401).send({ error: 'Token malformatted' });
 
     try {
-        const secret = process.env.secret;
+        const secret = process.env.SECRET;
 
         jwt.verify(token, secret!);
         next();

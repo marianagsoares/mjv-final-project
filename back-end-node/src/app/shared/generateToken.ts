@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 function generateToken(id = {}) {
-    const secret = process.env.secret;
+    const secret = process.env.SECRET;
 
     const token = jwt.sign(
         id,

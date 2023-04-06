@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { InferSchemaType, Schema } from 'mongoose';
 import moment from 'moment';
 import bcrypt from 'bcrypt';
 
@@ -46,17 +46,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-const User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);
 
-export interface IUser {
-  fullName: string,
-  email: string,
-  password: string,
-  birthday: string,
-  createdAt: string,
-  passwordResetToken?: string,
-  tokenExpirationDate?: string,
-  updatedAt?: string
-}
-
-export default User;
+export type User = InferSchemaType<typeof userSchema>;

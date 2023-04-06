@@ -34,10 +34,10 @@ router.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-router.patch("/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const userUpdated = await userService.updateUser(req.body, id);
+        const userUpdated = await userService.updateUser(id, req.body);
 
         res.send(userUpdated);
     } catch (error: any) {

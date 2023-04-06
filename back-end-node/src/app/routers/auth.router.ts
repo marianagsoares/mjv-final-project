@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import User from '../models/user.model';
+import { User } from '../models/user.model';
 import bcrypt from 'bcrypt';
 import '../shared/generateToken'
 import generateToken from '../shared/generateToken';

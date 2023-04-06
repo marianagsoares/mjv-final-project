@@ -46,7 +46,7 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
-const user = mongoose.model("users", UserSchema);
+const user = mongoose.model('user', UserSchema);
 
 export interface IUser {
   fullName: string,

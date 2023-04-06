@@ -19,20 +19,20 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  barCode:{
+  code:{
     type: String,
     required: true,
     unique: true
   }
 });
 
-const product = mongoose.model("products", ProductSchema);
+const product = mongoose.model('product', ProductSchema);
 
 export interface IProduct {
     name: string,
     description: string,
     amount: number,
-    barCode: string,
+    code: string,
     brand: string
 }
 

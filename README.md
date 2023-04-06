@@ -4,16 +4,20 @@
  </div>
 
 ## 📗 About
+---
 
-----
+<p>Welcome to API rest project developed in MJV nodejs School. So, let me describe it for you.
 
-<p>#</p>
+imagine a robust, reliable, and user-friendly API that allows businesses to manage their customers and products in one place.
+
+With this API, businesses can create, get, update and delete user and product. It offers a range of features including user authentication, and authorization and error handling.</p>
+
+<br></br>
 
 ## 💻 Tecnologies
+---
 
-----
-
- <div align="center" >
+ <div>
      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" height="50"/>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" width="50" height="50" />
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-plain-wordmark.svg" width="50" height="50">
@@ -41,9 +45,10 @@
 | `dotenv`       | Library for managing environment variables.                             |
 | `nodemailer`   | Library to send email to user.                                          |
 
-## 📌 Run the project
+<br></br>
 
-----
+## 📌 Run the project
+---
 
 ```bash
 # Clone the remote repository
@@ -66,9 +71,9 @@ $ npm install
 $ npm start
 ```
 
+<br></br>
 ## 🖋 Authoress
-
-----
+---
 
 <p align="center">Developed by Mariana Galindo</p>
 <div align="center">

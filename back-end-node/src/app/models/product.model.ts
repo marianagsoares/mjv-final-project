@@ -1,3 +1,4 @@
+import moment from 'moment';
 import mongoose, { InferSchemaType, Schema } from 'mongoose';
 
 const productSchema = new Schema({
@@ -32,6 +33,14 @@ const productSchema = new Schema({
   price: {
     type: Number,
     required: true,
+  },
+  createdAt: {
+    type: String,
+    default: moment(new Date()).format('DD/MM/YYYY, HH:mm:ss')
+  },
+  updatedAt: {
+    type: String,
+    default: "Not updated"
   }
 });
 

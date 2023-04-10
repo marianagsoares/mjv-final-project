@@ -6,13 +6,14 @@ import generateToken from "../shared/generateToken";
 import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
+import userRepository from "../../repositories/user.repository";
 class AuthService {
 
-    async getUserByEmail(email: string, aditionalInfo: string) {
+    async getUserByEmail(email: string, additionalInfo: string = '') {
         let userFound;
 
         try {
-            userFound = await User.findOne({ email }).select(aditionalInfo);
+            userFound = await userRepository.getByEmail(email, additionalInfo);
         } catch (error) {
             throw new BadRequestError('Invalid email');
         }
@@ -26,8 +27,8 @@ class AuthService {
     async authenticateUser(user: User) {
         const { email, password } = user;
 
-        const aditionalInfo = "+password"
-        const userFound = await this.getUserByEmail(email, aditionalInfo);
+        const additionalInfo = "+password"
+        const userFound = await this.getUserByEmail(email, additionalInfo);
 
         if (!userFound) throw new NotFoundError('User not found');
 
@@ -49,11 +50,9 @@ class AuthService {
             const expirationDate = new Date();
             expirationDate.setMinutes(expirationDate.getMinutes() + 30);
 
-            await User.updateOne({ _id: user.id }, {
-                '$set': {
-                    passwordResetToken: token,
-                    tokenExpirationDate: expirationDate
-                }
+            await userRepository.update(user.id, {
+                passwordResetToken: token,
+                tokenExpirationDate: expirationDate
             });
 
             transport.sendMail({
@@ -71,8 +70,8 @@ class AuthService {
     async resetPassword(credentials: any) {
         const { email, password, token } = credentials;
 
-        const aditionalInfo = '+passwordResetToken tokenExpirationDate';
-        const user = await this.getUserByEmail(email, aditionalInfo);
+        const additionalInfo = '+passwordResetToken tokenExpirationDate';
+        const user = await this.getUserByEmail(email, additionalInfo);
 
         try {
           if (token != user.passwordResetToken!) 

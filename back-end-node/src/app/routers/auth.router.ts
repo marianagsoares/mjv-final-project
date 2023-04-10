@@ -22,33 +22,11 @@ router.post('/forgot_password', async (req, res) => {
   const { email } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).send({ error: 'User not found' });
-
-    const token = crypto.randomBytes(10).toString('hex');
-
-    const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() + 30);
-
-    await User.updateOne({ _id: user.id }, {
-      '$set': {
-        passwordResetToken: token,
-        tokenExpirationDate: expirationDate
-      }
-    });
-
-    transport.sendMail({
-      from: `MJV API <${process.env.EMAIL}>`,
-      to: email,
-      subject: 'Change password',
-      text: 'Email sent by MJV API',
-      html: `Token to change password is ${token}`
-    });
+    await authService.forgotPassword(email);
 
     return res.send({ message: 'Email successfully sent' });
-
-  } catch (error) {
-    return res.status(400).send({ error: 'Error on forgot password' });
+  }catch(error: any){
+    return res.status(error.getStatusCode()).send({ message: error.message });
   }
 });
 

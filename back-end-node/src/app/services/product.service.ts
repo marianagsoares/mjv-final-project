@@ -1,19 +1,20 @@
-import { isObjectIdOrHexString } from "mongoose";
 import { BadRequestError } from "../errors/badRequest.error";
 import { InsuficientParamsError } from "../errors/insuficientParams.error";
-import Product, { IProduct } from "../models/product.model";
+import { Product } from "../models/product.model";
 import { ObjectId } from "bson";
+import productsRepository from "../../repositories/product.repository";
+import productRepository from "../../repositories/product.repository";
+import { NotFoundError } from "../errors/notFound.error";
 
 class ProductService {
     async getAllProducts() {
-        const allProducts: Array<IProduct> = await Product.find();
-        return allProducts;
+        return productsRepository.getAll();
     }
 
     async getProductByCode(code: string) {
         let productFound;
         try {
-            productFound = await Product.findOne({ code });
+            productFound = await productsRepository.getByCode(code);
         } catch (error) {
             throw new BadRequestError('Invalid bar code');
         }
@@ -24,7 +25,7 @@ class ProductService {
         let productFound;
 
         try {
-            productFound = await Product.findOne({ _id: new ObjectId(id) });
+            productFound = await productsRepository.getById(id);
         } catch {
             throw new BadRequestError('Invalid id');
         }
@@ -32,7 +33,7 @@ class ProductService {
         return productFound;
     }
 
-    async createProduct(product: IProduct) {
+    async createProduct(product: Product) {
         const { name, brand, code, description, amount } = product;
 
         if (!name || !code || !description || !amount || !brand)
@@ -45,7 +46,7 @@ class ProductService {
         }
 
         try {
-            const registeredProduct = await Product.create(product);
+            const registeredProduct = await productRepository.create(product);
 
             return registeredProduct;
         } catch (error) {
@@ -53,24 +54,24 @@ class ProductService {
         }
     }
 
-    async updateProduct(product: IProduct, id: string) {
-        const { name, description, amount, code, brand } = product;
+    async updateProduct(id: string, product: Product) {
+
+        const { code } = product;
 
         const ProductFound = await this.getProductById(id);
-        console.log(ProductFound, "PRODUTOO")
-
-        if (!name || !description || !amount || !code || !brand)
-            throw new InsuficientParamsError('Fill the mandatory fileds');
 
         if (!ProductFound)
-            throw new BadRequestError('Product does not exists');
+            throw new NotFoundError('Product not found');
+
+        if(ProductFound.code !== code){
+            throw new BadRequestError('Invalid product code')
+        }
 
         try {
-            await Product.updateOne({ _id: new ObjectId(id) }, { $set: product });
-
+            await productRepository.update(id, product);
 
             const productUpdated = await this.getProductById(id);
-            console.log(productUpdated);
+
             return productUpdated;
         } catch {
             throw new BadRequestError('Unable to update product');
@@ -79,10 +80,12 @@ class ProductService {
 
     async deleteProduct(id: string) {
         const productFound = await this.getProductById(id);
-        console.log(productFound)
+
+        if (!productFound)
+            throw new NotFoundError('Product not found');
 
         try {
-            await Product.deleteOne({ _id: new ObjectId(id) });
+            await productRepository.delete(id);
         } catch (error) {
             throw new BadRequestError('Unable to delete product');
         }

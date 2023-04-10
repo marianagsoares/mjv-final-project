@@ -1,7 +1,13 @@
-import mongoose from '../../db/database';
+import moment from 'moment';
+import mongoose, { InferSchemaType, Schema } from 'mongoose';
 
-const ProductSchema = new mongoose.Schema({
+const productSchema = new Schema({
   name: {
+    type: String,
+    required: true,
+    lowercase: true
+  },
+  image: {
     type: String,
     required: true,
     lowercase: true
@@ -19,21 +25,25 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  code:{
+  code: {
     type: String,
     required: true,
     unique: true
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  createdAt: {
+    type: String,
+    default: moment(new Date()).format('DD/MM/YYYY, HH:mm:ss')
+  },
+  updatedAt: {
+    type: String,
+    default: "Not updated"
   }
 });
 
-const product = mongoose.model('product', ProductSchema);
+export const Product = mongoose.model('Product', productSchema);
 
-export interface IProduct {
-    name: string,
-    description: string,
-    amount: number,
-    code: string,
-    brand: string
-}
-
-export default product;
+export type Product = InferSchemaType<typeof productSchema>;

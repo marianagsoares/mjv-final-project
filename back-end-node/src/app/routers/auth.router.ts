@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import User from '../models/user.model';
+import { User } from '../models/user.model';
 import bcrypt from 'bcrypt';
 import '../shared/generateToken'
 import generateToken from '../shared/generateToken';
@@ -46,7 +46,7 @@ router.post('/forgot_password', async (req, res) => {
     });
 
       transport.sendMail({
-        from: `MJV API <${process.env.user_email}>`,
+        from: `MJV API <${process.env.EMAIL}>`,
         to: email,
         subject: 'Change password',
         text: 'Email sent by MJV API',

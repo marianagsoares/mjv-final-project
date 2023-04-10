@@ -1,7 +1,10 @@
 import { Request, Response, Router } from "express";
 import productService from "../services/product.service";
+import auth from '../middleware/auth.middleware';
 
 const router = Router();
+
+router.use(auth);
 
 router.get('/', async (req: Request, res: Response) => {
     try {
@@ -36,7 +39,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const productUpdated = await productService.updateProduct(req.body, id);
+        const productUpdated = await productService.updateProduct(id, req.body);
 
         res.send(productUpdated);
     } catch (error: any) {

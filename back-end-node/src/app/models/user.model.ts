@@ -1,8 +1,8 @@
-import mongoose from '../../db/database';
+import mongoose, { InferSchemaType, Schema } from 'mongoose';
 import moment from 'moment';
 import bcrypt from 'bcrypt';
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new Schema({
   fullName: {
     type: String,
     required: true,
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: {
     type: String,
-    default: moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss')
+    default: moment(new Date()).format('DD/MM/YYYY, HH:mm:ss')
   },
   updatedAt: {
     type: String,
@@ -40,23 +40,12 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   const hash = await bcrypt.hash(this.password, 10);
   this.password = hash;
   next();
 });
 
-const user = mongoose.model('user', UserSchema);
+export const User = mongoose.model('User', userSchema);
 
-export interface IUser {
-  fullName: string,
-  email: string,
-  password: string,
-  birthday: string,
-  createdAt: string,
-  passwordResetToken?: string,
-  tokenExpirationDate?: string,
-  updatedAt?: string
-}
-
-export default user;
+export type User = InferSchemaType<typeof userSchema>;

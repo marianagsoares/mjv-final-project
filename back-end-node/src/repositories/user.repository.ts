@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { User } from '../app/models/user.model';
 
 class UserRepository {
@@ -18,7 +19,8 @@ class UserRepository {
     }
 
     update(id: string, user: Partial<User>) {
-        return User.updateOne({ _id: id }, { $set: user });
+       let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
+        return User.updateOne({ _id: id }, { $set: { ...user, updatedAt: formattedUpdatedAt } });
     }
 
     delete(id: string) {

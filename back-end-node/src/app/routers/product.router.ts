@@ -29,7 +29,7 @@ router.get('/:code', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
     try {
         const productCreated = await productService.createProduct(req.body);
-
+        
         return res.status(201).send(productCreated);
     } catch (error: any) {
         return res.status(error.getStatusCode()).send({ message: error.message });

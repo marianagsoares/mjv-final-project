@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Product } from '../app/models/product.model';
 
 class ProductRepository {
@@ -5,24 +6,21 @@ class ProductRepository {
         return Product.find();
     }
 
-    getById(id: string) { 
-        return Product.findOne({ _id: id });
-    }
-
-    getByCode(code: string){
+    getByCode(code: string) {
         return Product.findOne({ code: code });
     }
     
-    create(product: Product){
+    create(product: Product) {
         return Product.create(product);
     }
 
-    update(id: string, product: Partial<Product>){
-        return Product.updateOne({ _id: id }, { $set: product});
+    update(code: string, product: Partial<Product>) {
+        let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
+        return Product.updateOne({ code: code }, { $set: { ...product, updatedAt: formattedUpdatedAt } });
     }
 
-    delete(id: string){
-        return Product.deleteOne({_id: id});
+    delete(code: string){
+        return Product.deleteOne({code: code});
     }
 };
 

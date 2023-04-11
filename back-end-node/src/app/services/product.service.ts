@@ -37,6 +37,10 @@ class ProductService {
             throw new BadRequestError('Product already registered');
         }
 
+        if(code.length !== 12){
+            throw new BadRequestError ('Invalid bar code');
+        }
+
         try {
             const registeredProduct = await productRepository.create(product);
 

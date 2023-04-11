@@ -9,8 +9,8 @@ class UserRepository {
         return User.findOne({ _id: id });
     }
 
-    getByEmail(email: string) {
-        return User.findOne({ email: email });
+    getByEmail(email: string, additionalInfo: string = '') {
+        return User.findOne({ email }).select(additionalInfo);
     }
 
     create(user: User) {

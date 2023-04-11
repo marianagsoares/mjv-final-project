@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
 
-
 var transport = nodemailer.createTransport({
     host: process.env.HOST,
     port: Number(process.env.PORT),
@@ -10,6 +9,5 @@ var transport = nodemailer.createTransport({
         pass: process.env.EMAIL_PASSWORD
     }
 });
-
 
 export default (transport);

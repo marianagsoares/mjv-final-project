@@ -12,7 +12,7 @@ With this API, businesses can create, get, update and delete user and product. I
 <br></br>
 
 ## 💻 Tecnologies
- <div>
+ <div align='center'>
      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" height="50"/>
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg" width="50" height="50" />
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-plain-wordmark.svg" width="50" height="50">
@@ -21,6 +21,7 @@ With this API, businesses can create, get, update and delete user and product. I
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" height="50">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" height="50"/>
  </div>
+ <br></br>
 
 | Tool           | Description                                                             |
 | -------------- | ----------------------------------------------------------------------- |

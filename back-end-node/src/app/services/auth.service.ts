@@ -7,7 +7,7 @@ import generateToken from "../shared/generateToken";
 import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
-import userRepository from "../../repositories/user.repository";
+import userRepository from "../repositories/user.repository";
 class AuthService {
 
     async getUserByEmail(email: string, additionalInfo: string = '') {

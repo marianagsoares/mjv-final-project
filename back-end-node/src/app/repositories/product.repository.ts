@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Product } from '../app/models/product.model';
+import { Product } from '../models/product.model';
 
 class ProductRepository {
     getAll() {

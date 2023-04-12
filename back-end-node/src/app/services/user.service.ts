@@ -4,7 +4,7 @@ import { BadRequestError } from "../errors/badRequest.error";
 import { InsuficientParamsError } from "../errors/insuficientParams.error";
 import generateToken from "../shared/generateToken";
 import moment from "moment";
-import userRepository from "../../repositories/user.repository";
+import userRepository from "../repositories/user.repository";
 
 class UserService {
     async getAllUsers() {

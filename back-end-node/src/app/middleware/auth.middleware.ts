@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 
-
-const auth = async (req: Request, res: Response, next: NextFunction) => {
+export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -21,4 +20,3 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
         return res.status(401).send({ message: 'Invalid Token' });
     }
 }
-export default (auth);

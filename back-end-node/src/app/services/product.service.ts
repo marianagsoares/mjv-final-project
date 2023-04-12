@@ -2,8 +2,8 @@ import { BadRequestError } from "../errors/badRequest.error";
 import { InsuficientParamsError } from "../errors/insuficientParams.error";
 import { Product } from "../models/product.model";
 import { ObjectId } from "bson";
-import productsRepository from "../../repositories/product.repository";
-import productRepository from "../../repositories/product.repository";
+import productsRepository from "../repositories/product.repository";
+import productRepository from "../repositories/product.repository";
 import { NotFoundError } from "../errors/notFound.error";
 
 class ProductService {

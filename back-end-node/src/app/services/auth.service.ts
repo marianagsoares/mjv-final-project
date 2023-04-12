@@ -1,12 +1,13 @@
 import { BadRequestError } from "../errors/badRequest.error";
 import { NotFoundError } from "../errors/notFound.error";
+import { UnauthorizedError } from "../errors/Unauthorized.error"; 
 import { User } from "../models/user.model";
 import bcrypt from 'bcrypt';
 import generateToken from "../shared/generateToken";
 import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
-import userRepository from "../../repositories/user.repository";
+import userRepository from "../repositories/user.repository";
 class AuthService {
 
     async getUserByEmail(email: string, additionalInfo: string = '') {
@@ -33,7 +34,7 @@ class AuthService {
         if (!userFound) throw new NotFoundError('User not found');
 
         const checkPassword = await bcrypt.compare(password, userFound.password);
-        if (!checkPassword) throw new BadRequestError('Invalid password');
+        if (!checkPassword) throw new UnauthorizedError ('Authentication failed');
 
         return ({
             message: 'Successfully authenticated',

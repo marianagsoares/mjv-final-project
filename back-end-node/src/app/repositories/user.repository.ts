@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { User } from '../app/models/user.model';
+import { User } from '../models/user.model';
 
 class UserRepository {
     getAll() {

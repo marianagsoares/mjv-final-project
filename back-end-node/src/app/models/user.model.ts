@@ -63,8 +63,6 @@ type UpdateUser = {
 
 userSchema.pre('updateOne', async function (this: Update, next) {
   let { password } = this.getUpdate().$set
-  console.log(password, "SENHA", this.getUpdate(), "OBJETO")
-
   if (!password) {
     return next();
   } 
@@ -73,7 +71,6 @@ userSchema.pre('updateOne', async function (this: Update, next) {
     const salt = bcrypt.genSaltSync();
     const hash = await bcrypt.hash(password, salt);
     this.getUpdate().$set.password = hash;
-    console.log(hash);
     return next();
   }catch (error: any){
     throw new BadRequestError ('Password hash failed')

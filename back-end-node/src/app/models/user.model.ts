@@ -1,6 +1,6 @@
 import mongoose, { InferSchemaType, Schema } from 'mongoose';
 import moment from 'moment';
-import bcrypt from 'bcrypt';
+import bcrypt, { genSalt, genSaltSync } from 'bcrypt';
 
 const userSchema = new Schema({
   fullName: {
@@ -48,6 +48,26 @@ userSchema.pre('save', async function (next) {
   const hash = await bcrypt.hash(this.password, 10);
   this.password = hash;
   next();
+});
+
+type Update = {
+  getUpdate: () => User
+}
+
+userSchema.pre('updateOne', async function (this: Update, next) {
+  let { password } = this.getUpdate();
+  console.log(password, "SENHA", this.getUpdate(), "OBJETO")
+
+  if (!password) {
+    return next();
+  } else {
+    console.log("XXXXX")
+    const hash = await bcrypt.hash(password, 10);
+    console.log(hash, "1")
+    password = hash;
+    console.log(hash)
+    return next();
+  }
 });
 
 export const User = mongoose.model('User', userSchema);

@@ -10,7 +10,8 @@ interface JwtPayload {
 
 export const authPage = (permissions: string[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        const [scheme, token] = req.headers.authorization!.split(' ');
+        const [schema, token] = req.headers.authorization!.split(' ');
+
         const decoded = jwt.decode(token) as JwtPayload;
         
         const user = await userService.getUserById(decoded._id);

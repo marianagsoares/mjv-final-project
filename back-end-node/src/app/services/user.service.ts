@@ -62,10 +62,7 @@ class UserService {
     }
 
     async updateUser(id: string, user: User) {
-        const { email, password } = user;
-
-        if (password)
-            throw new BadRequestError('Operation not allowed');
+        const { email } = user;
 
         const userFound = await this.getUserById(id);
 

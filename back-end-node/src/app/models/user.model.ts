@@ -1,6 +1,7 @@
-import mongoose, { InferSchemaType, Schema } from 'mongoose';
+import mongoose, { InferSchemaType, Query, Schema } from 'mongoose';
 import moment from 'moment';
-import bcrypt, { genSalt, genSaltSync } from 'bcrypt';
+import bcrypt, { genSalt, genSaltSync, hash } from 'bcrypt';
+import { BadRequestError } from '../errors/badRequest.error';
 
 const userSchema = new Schema({
   fullName: {
@@ -51,22 +52,31 @@ userSchema.pre('save', async function (next) {
 });
 
 type Update = {
-  getUpdate: () => User
+  getUpdate: () => UpdateUser
+}
+
+type UpdateUser = {
+  $set: {
+    password: string
+  }
 }
 
 userSchema.pre('updateOne', async function (this: Update, next) {
-  let { password } = this.getUpdate();
+  let { password } = this.getUpdate().$set
   console.log(password, "SENHA", this.getUpdate(), "OBJETO")
 
   if (!password) {
     return next();
-  } else {
-    console.log("XXXXX")
-    const hash = await bcrypt.hash(password, 10);
-    console.log(hash, "1")
-    password = hash;
-    console.log(hash)
+  } 
+
+  try{
+    const salt = bcrypt.genSaltSync();
+    const hash = await bcrypt.hash(password, salt);
+    this.getUpdate().$set.password = hash;
+    console.log(hash);
     return next();
+  }catch (error: any){
+    throw new BadRequestError ('Password hash failed')
   }
 });
 

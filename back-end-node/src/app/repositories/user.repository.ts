@@ -15,7 +15,8 @@ class UserRepository {
     }
 
     create(user: User) {
-        return User.create(user);
+        let formattedUpdatedAt = moment(user.birthday).format('DD/MM/YYYY, HH:mm:ss');
+        return User.create({...user, birthday: formattedUpdatedAt });
     }
 
     update(id: string, user: Partial<User>) {

@@ -26,6 +26,7 @@ app.use((req, res, next) => {
     app.use(cors(corsOpts));
     next();
 });
+
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(routes);

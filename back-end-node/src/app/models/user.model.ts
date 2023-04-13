@@ -22,6 +22,10 @@ const userSchema = new Schema({
     required: true,
     select: false,
   },
+  role: {
+    type: String,
+    required: true
+  },
   passwordResetToken: {
     type: String,
     select: false

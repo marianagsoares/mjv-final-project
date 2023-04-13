@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import productService from "../services/product.service";
 import { auth } from '../middleware/auth.middleware';
+const { authPage } = require('../middleware/permission.middleware');
 
 const router = Router();
 
@@ -36,7 +37,7 @@ router.post('/', async (req: Request, res: Response) => {
     }
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
+router.put('/:id', authPage(["Admin"]), async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const productUpdated = await productService.updateProduct(id, req.body);

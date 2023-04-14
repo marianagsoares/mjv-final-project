@@ -19,7 +19,7 @@ class UserRepository {
     }
 
     update(id: string, user: Partial<User>) {
-       let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY');
+       let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
         return User.updateOne({ _id: id }, { $set: { ...user, updatedAt: formattedUpdatedAt } });
     }
 

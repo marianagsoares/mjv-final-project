@@ -15,12 +15,11 @@ class UserRepository {
     }
 
     create(user: User) {
-        let formattedUpdatedAt = moment(user.birthday).format('DD/MM/YYYY, HH:mm:ss');
-        return User.create({...user, birthday: formattedUpdatedAt });
+        return User.create(user);
     }
 
     update(id: string, user: Partial<User>) {
-       let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY, HH:mm:ss');
+       let formattedUpdatedAt = moment(Date.now()).format('DD/MM/YYYY');
         return User.updateOne({ _id: id }, { $set: { ...user, updatedAt: formattedUpdatedAt } });
     }
 

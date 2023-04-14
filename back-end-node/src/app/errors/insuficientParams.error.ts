@@ -4,7 +4,7 @@ export class InsuficientParamsError extends Error {
     constructor(message: string){
         super();
         this.message = message;
-        this.name = 'InsuficientParamsError';
+        this.name = 'InsuficientsParamsError';
         this.statusCode = 422;
     }
 

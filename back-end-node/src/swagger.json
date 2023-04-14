@@ -1,1 +1,102 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "tittle": "Manipulation API",
+    "description": "This API is responsible for manipulating users and products",
+    "contact": {
+      "email": "marianasoares.ti@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Test API"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "sumary": "User register",
+        "description": "This route is responsible for register a user",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "fullName": "Maria Mendes Souza",
+                    "birthday": "24-12-1998",
+                    "email": "maria@gmail.com",
+                    "password": "senha123",
+                    "role": "Administrator"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "UnauthorizedError"
+          },
+          "400": {
+            "description": "BadRequestError"
+          },
+          "404": {
+            "description": "NotFoundError"
+          },
+          "422": {
+            "description": "InsuficientsParamsError"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

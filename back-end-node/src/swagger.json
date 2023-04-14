@@ -17,8 +17,8 @@
   "paths": {
     "/users": {
       "post": {
-        "sumary": "User register",
-        "description": "This route is responsible for register a user",
+        "sumary": "Create User",
+        "description": "This route is responsible for create a user",
         "tags": ["Users"],
         "requestBody": {
           "content": {
@@ -32,7 +32,7 @@
                     "fullName": "Maria Mendes Souza",
                     "birthday": "24-12-1998",
                     "email": "maria@gmail.com",
-                    "password": "senha123",
+                    "password": "123456",
                     "role": "Administrator"
                   }
                 }
@@ -41,17 +41,11 @@
           }
         },
         "responses": {
-          "401": {
-            "description": "UnauthorizedError"
-          },
           "400": {
-            "description": "BadRequestError"
-          },
-          "404": {
-            "description": "NotFoundError"
+            "description": "User already exists"
           },
           "422": {
-            "description": "InsuficientsParamsError"
+            "description": "Fill the mandatory fields"
           },
           "200": {
             "description": "Ok",
@@ -60,6 +54,30 @@
                 "schema": {
                   "type": "object",
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get all users",
+        "description": "This route is responsible get all users",
+        "tags": [ "Users" ],
+        "security": [ { "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Token is required"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
                 }
               }
             }

@@ -47,8 +47,8 @@
           "422": {
             "description": "Fill the mandatory fields"
           },
-          "200": {
-            "description": "Ok",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -201,6 +201,74 @@
             }
           }
         }
+      },
+      "delete": {
+        "sumary": "Delete user by id",
+        "description": "This route is responsible for delete a user by id",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Type a user id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Token is required"
+          },
+          "400": {
+            "description": "Invalid id"
+          },
+          "404": {
+            "description": "User not Found"
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "sumary": "Authenticate User",
+        "description": "This route is responsible for authenticate a user",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "maria@gmail.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "User not found"
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -225,13 +293,6 @@
             "type": "string"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
       }
     }
   }

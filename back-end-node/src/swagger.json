@@ -270,6 +270,48 @@
           }
         }
       }
+    },
+    "/forgot_password": {
+      "post": {
+        "sumary": "Forgot password",
+        "description": "This route is responsible for send a token to the user email",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "maria@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "User not found"
+          },
+          "400": {
+            "description": "Error on forgot password"
+          },
+          "200": {
+            "description": "Email successfully sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

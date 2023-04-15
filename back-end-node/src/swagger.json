@@ -42,10 +42,10 @@
         },
         "responses": {
           "400": {
-            "description": "User already exists"
+            "description": "Bad Request Error"
           },
           "422": {
-            "description": "Fill the mandatory fields"
+            "description": "Unprocessable Entity"
           },
           "201": {
             "description": "Created",
@@ -67,7 +67,7 @@
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "401": {
-            "description": "Token is required"
+            "description": "Unauthorized Error"
           },
           "200": {
             "description": "Ok",
@@ -101,13 +101,13 @@
         ],
         "responses": {
           "401": {
-            "description": "Token is required"
+            "description": "Unauthorized Error"
           },
           "400": {
-            "description": "Invalid id"
+            "description": "Bad Request Error"
           },
           "404": {
-            "description": "User not Found"
+            "description": "Not Found Error"
           },
           "200": {
             "description": "Ok",
@@ -179,13 +179,13 @@
         },
         "responses": {
           "401": {
-            "description": "Token is required"
+            "description": "Unauthorized Error"
           },
           "400": {
-            "description": "Invalid id"
+            "description": "Bad Request Error"
           },
           "404": {
-            "description": "User not Found"
+            "description": "Not Found Error"
           },
           "200": {
             "description": "Ok",
@@ -217,13 +217,13 @@
         ],
         "responses": {
           "401": {
-            "description": "Token is required"
+            "description": "Unauthorized Error"
           },
           "400": {
-            "description": "Invalid id"
+            "description": "Bad Request Error"
           },
           "404": {
-            "description": "User not Found"
+            "description": "Not Found Error"
           }
         }
       }
@@ -252,10 +252,10 @@
         },
         "responses": {
           "404": {
-            "description": "User not found"
+            "description": "Not Found Error"
           },
           "401": {
-            "description": "Authentication failed"
+            "description": "Unauthorized Error"
           },
           "200": {
             "description": "Ok",
@@ -285,7 +285,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "maria@gmail.com"
+                    "email": "apiteste999@gmail.com"
                   }
                 }
               }
@@ -294,13 +294,54 @@
         },
         "responses": {
           "404": {
-            "description": "User not found"
+            "description": "Not Found Error"
           },
           "400": {
-            "description": "Error on forgot password"
+            "description": "Bad Request Error"
           },
           "200": {
-            "description": "Email successfully sent",
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reset_password": {
+      "post": {
+        "sumary": "Reset password",
+        "description": "This route is responsible for allow user create a new password",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "apiteste999@gmail.com",
+                    "password": "12345678",
+                    "token": "0123456789abcdefghij"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "200": {
+            "description": "Ok",
             "content": {
               "application/json": {
                 "schema": {

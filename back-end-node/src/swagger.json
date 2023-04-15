@@ -29,9 +29,9 @@
               "examples": {
                 "user": {
                   "value": {
-                    "fullName": "Maria Mendes Souza",
+                    "fullName": "John Doe",
                     "birthday": "24-12-1998",
-                    "email": "maria@gmail.com",
+                    "email": "johndoe@gmail.com",
                     "password": "123456",
                     "role": "Administrator"
                   }
@@ -146,16 +146,16 @@
               "examples": {
                 "Change user": {
                   "value": {
-                    "fullName": "Maria Mendes Ferreira",
+                    "fullName": "John Doe Jr",
                     "birthday": "22-12-1998",
-                    "email": "mariamendes@gmail.com",
+                    "email": "johndoejr@gmail.com",
                     "password": "1234567",
                     "role": "Administrator"
                   }
                 },
                 "Change user email": {
                   "value": {
-                    "email": "mariamendes@gmail.com"
+                    "email": "johndoejr@gmail.com"
                   }
                 },
                 "Change user password": {
@@ -165,12 +165,12 @@
                 },
                 "Change user fullName": {
                   "value": {
-                    "fullName": "Maria Mendes Ferreira"
-                  },
-                  "Change user birthDay": {
-                    "value": {
-                      "birthday": "22-12-1998"
-                    }
+                    "fullName": "John Doe Jr"
+                  }
+                },
+                "Change user birthday": {
+                  "value": {
+                    "birthday": "22-12-1998"
                   }
                 }
               }
@@ -242,7 +242,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "maria@gmail.com",
+                    "email": "johndoe@gmail.com",
                     "password": "123456"
                   }
                 }
@@ -285,7 +285,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "apiteste999@gmail.com"
+                    "email": "johndoe@gmail.com"
                   }
                 }
               }
@@ -327,7 +327,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "apiteste999@gmail.com",
+                    "email": "johndoe@gmail.com",
                     "password": "12345678",
                     "token": "0123456789abcdefghij"
                   }

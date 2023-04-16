@@ -232,7 +232,7 @@
       "post": {
         "sumary": "Authenticate User",
         "description": "This route is responsible for authenticate a user",
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -275,7 +275,7 @@
       "post": {
         "sumary": "Forgot password",
         "description": "This route is responsible for send a token to the user email",
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -317,7 +317,7 @@
       "post": {
         "sumary": "Reset password",
         "description": "This route is responsible for allow user create a new password",
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -396,6 +396,70 @@
                 "schema": {
                   "type": "object",
                   "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get all products",
+        "description": "This route is responsible get all products",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{code}": {
+      "get": {
+        "sumary": "Get product by code",
+        "description": "This route is responsible for get a product by code",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
                 }
               }
             }

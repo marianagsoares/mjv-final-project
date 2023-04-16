@@ -12,13 +12,18 @@ class ProductService {
 
     async getProductByCode(code: string) {
         let productFound;
+
+        if (code.length !== 13) {
+            throw new BadRequestError('Invalid code');
+        }
+
         try {
             productFound = await productsRepository.getByCode(code);
         } catch (error) {
-            throw new BadRequestError('Invalid bar code');
+            throw new BadRequestError ('Unable to get product by code')
         }
 
-        if(!productFound){
+        if (!productFound) {
             throw new NotFoundError('Product not found');
         }
         return productFound;
@@ -30,14 +35,14 @@ class ProductService {
         if (!name || !code || !description || !amount || !brand)
             throw new InsuficientParamsError('Fill the mandatory fields');
 
-        const productFound =  await productsRepository.getByCode(code);
+        const productFound = await productsRepository.getByCode(code);
 
         if (productFound) {
             throw new BadRequestError('Product already registered');
         }
 
-        if(code.length !== 13){
-            throw new BadRequestError ('Invalid bar code');
+        if (code.length !== 13) {
+            throw new BadRequestError('Invalid code');
         }
 
         try {
@@ -56,7 +61,7 @@ class ProductService {
         if (!productFound)
             throw new NotFoundError('Product not found');
 
-        if(productFound.code !== code){
+        if (productFound.code !== code) {
             throw new BadRequestError('Invalid product code')
         }
 

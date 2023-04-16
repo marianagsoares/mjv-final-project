@@ -59,7 +59,7 @@ class AuthService {
             transport.sendMail({
                 from: `MJV API <${process.env.EMAIL}>`,
                 to: email,
-                subject: 'Change password',
+                subject: 'Update password',
                 text: 'Email sent by MJV API',
                 html: `Token to change password is ${token}`
             });

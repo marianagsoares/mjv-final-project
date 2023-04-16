@@ -33,7 +33,7 @@
                     "birthday": "24-12-1998",
                     "email": "johndoe@gmail.com",
                     "password": "123456",
-                    "role": "Administrator"
+                    "role": "Administrador"
                   }
                 }
               }
@@ -150,7 +150,7 @@
                     "birthday": "22-12-1998",
                     "email": "johndoejr@gmail.com",
                     "password": "1234567",
-                    "role": "Administrator"
+                    "role": "Administrador"
                   }
                 },
                 "Change user email": {

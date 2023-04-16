@@ -36,7 +36,7 @@ class ProductService {
             throw new BadRequestError('Product already registered');
         }
 
-        if(code.length !== 12){
+        if(code.length !== 13){
             throw new BadRequestError ('Invalid bar code');
         }
 

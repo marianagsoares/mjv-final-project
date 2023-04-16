@@ -353,6 +353,55 @@
           }
         }
       }
+    },
+    "/products" : {
+      "post": {
+        "sumary": "Create Product",
+        "description": "This route is responsible for create a product",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Clean Code",
+                    "image": "clean-code-cover-link.png",
+                    "description": "A Handbook of Agile Software Craftsmanship",
+                    "brand": "Pearson",
+                    "amount": 1,
+                    "code": "9780132350884",
+                    "price": 117
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -376,6 +425,39 @@
             "type": "string"
           }
         }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme":"bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

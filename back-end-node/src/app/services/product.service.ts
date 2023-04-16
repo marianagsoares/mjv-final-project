@@ -62,10 +62,7 @@ class ProductService {
             throw new BadRequestError('Update code is not allowed')
         }
 
-        const productFound = await this.getProductByCode(code);
-
-        if (!productFound)
-            throw new NotFoundError('Product not found');
+        await this.getProductByCode(code);
 
         try {
             await productRepository.update(code, product);
@@ -79,10 +76,7 @@ class ProductService {
     }
 
     async deleteProduct(code: string) {
-        const productFound = await this.getProductByCode(code);
-
-        if (!productFound)
-            throw new NotFoundError('Product not found');
+        await this.getProductByCode(code);
 
         try {
             await productRepository.delete(code);

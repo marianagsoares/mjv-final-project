@@ -224,6 +224,9 @@
           },
           "404": {
             "description": "Not Found Error"
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -354,7 +357,7 @@
         }
       }
     },
-    "/products" : {
+    "/products": {
       "post": {
         "sumary": "Create Product",
         "description": "This route is responsible for create a product",
@@ -468,7 +471,7 @@
       },
       "put": {
         "sumary": "Update product by code",
-        "description": "This route is responsible for update a product by id",
+        "description": "This route is responsible for update a product by code",
         "tags": ["Products"],
         "security": [{ "bearerAuth": [] }],
         "parameters": [
@@ -498,32 +501,32 @@
                 },
                 "Update name": {
                   "value": {
-                  "name": "Clean Code Ebook"
+                    "name": "Clean Code Ebook"
                   }
                 },
                 "Update image": {
                   "value": {
-                  "image": "clean-code-new-cover-link.png"
+                    "image": "clean-code-new-cover-link.png"
                   }
                 },
                 "Update description": {
                   "value": {
-                  "description": "A Handbook of Agile Software Craftsmanship - English Edition"
+                    "description": "A Handbook of Agile Software Craftsmanship - English Edition"
                   }
                 },
                 "Update brand": {
                   "value": {
-                  "brand": "Pearson Education"
+                    "brand": "Pearson Education"
                   }
                 },
                 "Update amount": {
                   "value": {
-                  "amount": 10
+                    "amount": 10
                   }
                 },
                 "Update price": {
                   "value": {
-                  "price": 100
+                    "price": 100
                   }
                 }
               }
@@ -552,6 +555,34 @@
                 }
               }
             }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete product by code",
+        "description": "This route is responsible for Delete a product by code",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "204": {
+            "description": "No Content"
           }
         }
       }
@@ -609,7 +640,7 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme":"bearer",
+        "scheme": "bearer",
         "bearerFormat": "JWT"
       }
     }

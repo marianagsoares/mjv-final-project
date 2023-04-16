@@ -1,6 +1,6 @@
 import { BadRequestError } from "../errors/badRequest.error";
 import { NotFoundError } from "../errors/notFound.error";
-import { UnauthorizedError } from "../errors/Unauthorized.error"; 
+import { UnauthorizedError } from "../errors/Unauthorized.error";
 import { User } from "../models/user.model";
 import bcrypt from 'bcrypt';
 import generateToken from "../shared/generateToken";
@@ -34,7 +34,7 @@ class AuthService {
         if (!userFound) throw new NotFoundError('User not found');
 
         const checkPassword = await bcrypt.compare(password, userFound.password);
-        if (!checkPassword) throw new UnauthorizedError ('Authentication failed');
+        if (!checkPassword) throw new UnauthorizedError('Authentication failed');
 
         return ({
             message: 'Successfully authenticated',
@@ -59,7 +59,7 @@ class AuthService {
             transport.sendMail({
                 from: `MJV API <${process.env.EMAIL}>`,
                 to: email,
-                subject: 'Change password',
+                subject: 'Update password',
                 text: 'Email sent by MJV API',
                 html: `Token to change password is ${token}`
             });
@@ -74,19 +74,19 @@ class AuthService {
         const additionalInfo = '+passwordResetToken tokenExpirationDate';
         const user = await this.getUserByEmail(email, additionalInfo);
 
-        try {
-          if (token != user.passwordResetToken!) 
+        if (token != user.passwordResetToken!)
             throw new BadRequestError('Invalid token');
-      
-          const now = new Date();
 
-          if (now > user.tokenExpirationDate!)
+        const now = new Date();
+
+        if (now > user.tokenExpirationDate!)
             throw new BadRequestError('Token expired, generate a new one');
-      
-          user.password = password;
-          await user.save();  
+
+        try {
+            user.password = password;
+            await user.save();
         } catch (error) {
-            throw new BadRequestError('Cannot update password');
+            throw new BadRequestError('Unable to update password');
         }
     }
 }

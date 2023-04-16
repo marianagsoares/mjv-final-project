@@ -7,7 +7,7 @@ const router = Router();
 
 router.use(auth);
 
-router.get('/',  authPage(["Administrator", "Collaborator"]), async (req: Request, res: Response) => {
+router.get('/',  authPage(["Administrador", "Colaborador"]), async (req: Request, res: Response) => {
     try {
         const products = await productService.getAllProducts();
         return res.send(products);
@@ -16,7 +16,7 @@ router.get('/',  authPage(["Administrator", "Collaborator"]), async (req: Reques
     }
 });
 
-router.get('/:code', authPage(["Administrator", "Collaborator"]), async (req: Request, res: Response) => {
+router.get('/:code', authPage(["Administrador", "Colaborador"]), async (req: Request, res: Response) => {
     const { code } = req.params;
 
     try {
@@ -27,7 +27,7 @@ router.get('/:code', authPage(["Administrator", "Collaborator"]), async (req: Re
     }
 });
 
-router.post('/', authPage(["Administrator"]), async (req: Request, res: Response) => {
+router.post('/', authPage(["Administrador"]), async (req: Request, res: Response) => {
     try {
         const productCreated = await productService.createProduct(req.body);
         
@@ -37,7 +37,7 @@ router.post('/', authPage(["Administrator"]), async (req: Request, res: Response
     }
 });
 
-router.put('/:id', authPage(["Administrator"]), async (req: Request, res: Response) => {
+router.put('/:id', authPage(["Administrador"]), async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const productUpdated = await productService.updateProduct(id, req.body);
@@ -48,7 +48,7 @@ router.put('/:id', authPage(["Administrator"]), async (req: Request, res: Respon
     }
 });
 
-router.delete('/:id', authPage(["Administrator"]), async (req: Request, res: Response) => {
+router.delete('/:id', authPage(["Administrador"]), async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {

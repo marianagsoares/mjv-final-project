@@ -4,9 +4,12 @@ import cors from 'cors';
 import routes from './src/app/middleware/routes.middleware';
 import './src/config/env';
 import connection from './src/config/database';
-
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./src/swagger.json";
 
 const app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((req, res, next) => {
     const corsOpts = {

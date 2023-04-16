@@ -1,0 +1,648 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "tittle": "Manipulation API",
+    "description": "This API is responsible for manipulating users and products",
+    "contact": {
+      "email": "marianasoares.ti@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Test API"
+    }
+  ],
+  "paths": {
+    "/authenticate": {
+      "post": {
+        "sumary": "Authenticate User",
+        "description": "This route is responsible for authenticate a user",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found Error"
+          },
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forgot_password": {
+      "post": {
+        "sumary": "Forgot password",
+        "description": "This route is responsible for send a token to the user email",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reset_password": {
+      "post": {
+        "sumary": "Reset password",
+        "description": "This route is responsible for allow user create a new password",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com",
+                    "password": "12345678",
+                    "token": "0123456789abcdefghij"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "sumary": "Create User",
+        "description": "This route is responsible for create a user",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "fullName": "John Doe",
+                    "birthday": "24-12-1998",
+                    "email": "johndoe@gmail.com",
+                    "password": "123456",
+                    "role": "Administrador"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get all users",
+        "description": "This route is responsible get all users",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "sumary": "Get user by id",
+        "description": "This route is responsible for get a user by id",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Type a user id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "sumary": "Update user by id",
+        "description": "This route is responsible for update a user by id",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Type a user id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "Update user": {
+                  "value": {
+                    "fullName": "John Doe Jr",
+                    "birthday": "22-12-1998",
+                    "email": "johndoejr@gmail.com",
+                    "password": "1234567",
+                    "role": "Administrador"
+                  }
+                },
+                "Update user email": {
+                  "value": {
+                    "email": "johndoejr@gmail.com"
+                  }
+                },
+                "Update user password": {
+                  "value": {
+                    "password": "1234567"
+                  }
+                },
+                "Update user fullName": {
+                  "value": {
+                    "fullName": "John Doe Jr"
+                  }
+                },
+                "Update user birthday": {
+                  "value": {
+                    "birthday": "22-12-1998"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete user by id",
+        "description": "This route is responsible for delete a user by id",
+        "tags": ["Users"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Type a user id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "sumary": "Create Product",
+        "description": "This route is responsible for create a product",
+        "security": [{ "bearerAuth": [] }],
+        "tags": ["Products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Clean Code",
+                    "image": "clean-code-cover-link.png",
+                    "description": "A Handbook of Agile Software Craftsmanship",
+                    "brand": "Pearson",
+                    "amount": 1,
+                    "code": "9780132350884",
+                    "price": 117
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "sumary": "Get all products",
+        "description": "This route is responsible get all products",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{code}": {
+      "get": {
+        "sumary": "Get product by code",
+        "description": "This route is responsible for get a product by code",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "sumary": "Update product by code",
+        "description": "This route is responsible for update a product by code",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "Update product": {
+                  "value": {
+                    "name": "Clean Code Ebook",
+                    "image": "clean-code-new-cover-link.png",
+                    "description": "A Handbook of Agile Software Craftsmanship - English Edition",
+                    "brand": "Pearson Education",
+                    "amount": 2,
+                    "price": 100
+                  }
+                },
+                "Update name": {
+                  "value": {
+                    "name": "Clean Code Ebook"
+                  }
+                },
+                "Update image": {
+                  "value": {
+                    "image": "clean-code-new-cover-link.png"
+                  }
+                },
+                "Update description": {
+                  "value": {
+                    "description": "A Handbook of Agile Software Craftsmanship - English Edition"
+                  }
+                },
+                "Update brand": {
+                  "value": {
+                    "brand": "Pearson Education"
+                  }
+                },
+                "Update amount": {
+                  "value": {
+                    "amount": 10
+                  }
+                },
+                "Update price": {
+                  "value": {
+                    "price": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "sumary": "Delete product by code",
+        "description": "This route is responsible for Delete a product by code",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

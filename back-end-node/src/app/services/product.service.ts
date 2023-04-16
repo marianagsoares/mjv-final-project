@@ -55,15 +55,17 @@ class ProductService {
     }
 
     async updateProduct(code: string, product: Product) {
+        
+        const { code: codeOnBody } = product
+
+        if(codeOnBody){
+            throw new BadRequestError('Update code is not allowed')
+        }
 
         const productFound = await this.getProductByCode(code);
 
         if (!productFound)
             throw new NotFoundError('Product not found');
-
-        if (productFound.code !== code) {
-            throw new BadRequestError('Invalid product code')
-        }
 
         try {
             await productRepository.update(code, product);

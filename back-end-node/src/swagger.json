@@ -144,7 +144,7 @@
                 "$ref": "#/components/schemas/User"
               },
               "examples": {
-                "Change user": {
+                "Update user": {
                   "value": {
                     "fullName": "John Doe Jr",
                     "birthday": "22-12-1998",
@@ -153,22 +153,22 @@
                     "role": "Administrador"
                   }
                 },
-                "Change user email": {
+                "Update user email": {
                   "value": {
                     "email": "johndoejr@gmail.com"
                   }
                 },
-                "Change user password": {
+                "Update user password": {
                   "value": {
                     "password": "1234567"
                   }
                 },
-                "Change user fullName": {
+                "Update user fullName": {
                   "value": {
                     "fullName": "John Doe Jr"
                   }
                 },
-                "Change user birthday": {
+                "Update user birthday": {
                   "value": {
                     "birthday": "22-12-1998"
                   }
@@ -441,6 +441,95 @@
             "required": true
           }
         ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "404": {
+            "description": "Not Found Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "sumary": "Update product by code",
+        "description": "This route is responsible for update a product by id",
+        "tags": ["Products"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Type a product code",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "Update product": {
+                  "value": {
+                    "name": "Clean Code Ebook",
+                    "image": "clean-code-new-cover-link.png",
+                    "description": "A Handbook of Agile Software Craftsmanship - English Edition",
+                    "brand": "Pearson Education",
+                    "amount": 2,
+                    "price": 100
+                  }
+                },
+                "Update name": {
+                  "value": {
+                  "name": "Clean Code Ebook"
+                  }
+                },
+                "Update image": {
+                  "value": {
+                  "image": "clean-code-new-cover-link.png"
+                  }
+                },
+                "Update description": {
+                  "value": {
+                  "description": "A Handbook of Agile Software Craftsmanship - English Edition"
+                  }
+                },
+                "Update brand": {
+                  "value": {
+                  "brand": "Pearson Education"
+                  }
+                },
+                "Update amount": {
+                  "value": {
+                  "amount": 10
+                  }
+                },
+                "Update price": {
+                  "value": {
+                  "price": 100
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "401": {
             "description": "Unauthorized Error"

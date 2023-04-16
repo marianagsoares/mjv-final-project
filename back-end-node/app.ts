@@ -34,7 +34,7 @@ app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(routes);
 
-const port = process.env.LIST_PORT;
+const port = process.env.PORT;
 
 connection.then(() => {
     console.log('Conected to database');

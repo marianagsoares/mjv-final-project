@@ -15,6 +15,132 @@
     }
   ],
   "paths": {
+    "/authenticate": {
+      "post": {
+        "sumary": "Authenticate User",
+        "description": "This route is responsible for authenticate a user",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found Error"
+          },
+          "401": {
+            "description": "Unauthorized Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forgot_password": {
+      "post": {
+        "sumary": "Forgot password",
+        "description": "This route is responsible for send a token to the user email",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found Error"
+          },
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reset_password": {
+      "post": {
+        "sumary": "Reset password",
+        "description": "This route is responsible for allow user create a new password",
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "johndoe@gmail.com",
+                    "password": "12345678",
+                    "token": "0123456789abcdefghij"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request Error"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "post": {
         "sumary": "Create User",
@@ -227,132 +353,6 @@
           },
           "204": {
             "description": "No Content"
-          }
-        }
-      }
-    },
-    "/authenticate": {
-      "post": {
-        "sumary": "Authenticate User",
-        "description": "This route is responsible for authenticate a user",
-        "tags": ["Auth"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              },
-              "examples": {
-                "user": {
-                  "value": {
-                    "email": "johndoe@gmail.com",
-                    "password": "123456"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "404": {
-            "description": "Not Found Error"
-          },
-          "401": {
-            "description": "Unauthorized Error"
-          },
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/forgot_password": {
-      "post": {
-        "sumary": "Forgot password",
-        "description": "This route is responsible for send a token to the user email",
-        "tags": ["Auth"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              },
-              "examples": {
-                "user": {
-                  "value": {
-                    "email": "johndoe@gmail.com"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "404": {
-            "description": "Not Found Error"
-          },
-          "400": {
-            "description": "Bad Request Error"
-          },
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/reset_password": {
-      "post": {
-        "sumary": "Reset password",
-        "description": "This route is responsible for allow user create a new password",
-        "tags": ["Auth"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              },
-              "examples": {
-                "user": {
-                  "value": {
-                    "email": "johndoe@gmail.com",
-                    "password": "12345678",
-                    "token": "0123456789abcdefghij"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request Error"
-          },
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
           }
         }
       }

@@ -21,6 +21,11 @@ With this API, businesses can create, get, update and delete user and product. I
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" height="50">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" height="50"/>
  </div>
+
+<p>You can see my [Swagger here](/api-docs)</p>
+
+<p>You can see my [API here]()</p>
+
  <br></br>
 
 | Tool           | Description                                                             |
@@ -61,7 +66,10 @@ $ npm install
 ```
 
 ```bash
-# Initialize the project
+# Initialize the project using the local database
+$ npm run dev
+
+# Initialize the project using the cloud database
 $ npm start
 ```
 

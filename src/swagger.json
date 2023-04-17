@@ -11,7 +11,11 @@
   "servers": [
     {
       "url": "http://localhost:3000",
-      "description": "Test API"
+      "description": "Local Database"
+    },
+    {
+      "url": "https://mjv-final-project.onrender.com",
+      "description": "Cloud Database"
     }
   ],
   "paths": {

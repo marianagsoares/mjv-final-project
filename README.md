@@ -62,7 +62,7 @@ $ npm start
 | GET    | /users/:id     |  List a user by id        |   200  | <p align="center">✔️</p>| 
 | POST   | /users         |  Create a user            |   201  | <p align="center">❌</p>| 
 | PUT    | /users/:id     |  Update a user by id      |   200  | <p align="center">✔️</p>|  
-| DELETE | /users         |  Delete a user by id      |   204  | <p align="center">✔️</p>|
+| DELETE | /users/:id     |  Delete a user by id      |   204  | <p align="center">✔️</p>|
 
 <p></p>
 <p></p>

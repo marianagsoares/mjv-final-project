@@ -36,6 +36,46 @@ $ npm run dev
 # Initialize the project using the cloud database
 $ npm start
 ```
+<br></br>
+
+## 🔐 Routes
+
+<p></p>
+<p></p>
+
+### Auth
+
+| Method |    Endpoint    |     Route Description     | Status | Token Required |
+| ------ | -------------  | --------------------------| ------ | ---------------| 
+| POST    | /authenticate |  Authenticate user        |   200  | <p align="center">❌</p>| 
+| POST    | /forgot_password | Send a token to user email |   200  | <p align="center">❌</p>| 
+| POST   | /reset_password   | Reset user password        |   200  | <p align="center">❌</p>| 
+
+<p></p>
+<p></p>
+
+### Users Collection
+
+| Method |    Endpoint    |     Route Description     | Status | Token Required |
+| ------ | -------------  | --------------------------| ------ | ---------------| 
+| GET    | /users         |  List all users           |   200  | <p align="center">✔️</p>| 
+| GET    | /users/:id     |  List a user by id        |   200  | <p align="center">✔️</p>| 
+| POST   | /users         |  Create a user            |   201  | <p align="center">❌</p>| 
+| PUT    | /users/:id     |  Update a user by id      |   200  | <p align="center">✔️</p>|  
+| DELETE | /users         |  Delete a user by id      |   204  | <p align="center">✔️</p>|
+
+<p></p>
+<p></p>
+
+### Products Collection
+
+| Method |    Endpoint     |     Route Description     | Status | Token Required          | <p align="center">Permissions</p> |
+| ------ | -------------   | --------------------------| ------ | ------------------------|-------------|
+| GET    | /products       |  List all products        |   200  |<p align="center">✔️</p> | Administrador e Colaborador |
+| GET    | /products/:code |  List a product by code   |   200  |<p align="center">✔️</p>  | Administrador e Colaborador|
+| POST   | /products       |  Create a product         |   201  |<p align="center">✔️</p> | <p align="center">Administrador</p>|
+| PUT    | /products/:code |  Update a product by code |   200  |<p align="center">✔️</p> | <p align="center">Administrador</p>|
+| DELETE | /products/:code |  Delete a product by code |   204  |<p align="center">✔️</p> | <p align="center">Administrador</p>|
 
 <br></br>
 

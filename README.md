@@ -13,7 +13,7 @@ With this API, businesses can create, get, update and delete user and product. I
 
 ## ⌨️ Try it out
 
-### My API is hosted [here](https://mjv-final-project.onrender.com/) and you can try it out by using its [swagger](https://mjv-final-project.onrender.com/api-docs/).
+### My API is hosted [here](https://mjv-final-project.onrender.com/) and you can try it out by using its <a href="" target="_blank">[swagger](https://mjv-final-project.onrender.com/api-docs/)</a>.
 
 <br></br>
 
@@ -71,8 +71,8 @@ $ npm start
 
 | Method |    Endpoint     |     Route Description     | Status | Token Required          | <p align="center">Permissions</p> |
 | ------ | -------------   | --------------------------| ------ | ------------------------|-------------|
-| GET    | /products       |  List all products        |   200  |<p align="center">✔️</p> | Administrador e Colaborador |
-| GET    | /products/:code |  List a product by code   |   200  |<p align="center">✔️</p>  | Administrador e Colaborador|
+| GET    | /products       |  List all products        |   200  |<p align="center">✔️</p> | <p align="center">Administrador e Colaborador</p>|
+| GET    | /products/:code |  List a product by code   |   200  |<p align="center">✔️</p>  | <p align="center">Administrador e Colaborador</p>|
 | POST   | /products       |  Create a product         |   201  |<p align="center">✔️</p> | <p align="center">Administrador</p>|
 | PUT    | /products/:code |  Update a product by code |   200  |<p align="center">✔️</p> | <p align="center">Administrador</p>|
 | DELETE | /products/:code |  Delete a product by code |   204  |<p align="center">✔️</p> | <p align="center">Administrador</p>|

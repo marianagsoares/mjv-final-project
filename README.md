@@ -1,13 +1,41 @@
 <div align="center">    
-   <img src="back-end-node/src/assets/logo.png">
+   <img src="src/assets/logo.png">
    <p>School Node.js</p>
  </div>
 
 ## 📗 About
-<p>Welcome to API rest project developed in MJV nodejs School. So, let me describe it for you.
+<p>Welcome to my Rest API project developed in MJV nodejs School.
 
 Imagine a robust, reliable, and user-friendly API that allows businesses to manage their customers and products in one place.
-With this API, businesses can create, get, update and delete user and product. It offers a range of features including user authentication, and authorization and error handling.</p>
+With this API, businesses can create, get, update and delete user and product. It offers a range of features including user authentication, authorization and error handling</p>
+
+<br></br>
+
+## ⌨️ Try it out
+
+### My API is hosted [here](https://mjv-final-project.onrender.com/) and you can try it out by using its [swagger](https://mjv-final-project.onrender.com/api-docs/).
+
+<br></br>
+
+
+## 📌 Run the project
+```bash
+# Clone the remote repository
+$ git clone https://github.com/marianagsoares/mjv_final_project.git
+```
+
+```bash
+# Install the dependencies
+$ npm install
+```
+
+```bash
+# Initialize the project using the local database
+$ npm run dev
+
+# Initialize the project using the cloud database
+$ npm start
+```
 
 <br></br>
 
@@ -21,10 +49,6 @@ With this API, businesses can create, get, update and delete user and product. I
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" height="50">
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" height="50"/>
  </div>
-
-<p>You can see my [Swagger here](/api-docs)</p>
-
-<p>You can see my [API here]()</p>
 
  <br></br>
 
@@ -45,33 +69,6 @@ With this API, businesses can create, get, update and delete user and product. I
 | `jsonwebtoken` | Library to implement JSON web token protocol.                           |
 | `dotenv`       | Library for managing environment variables.                             |
 | `nodemailer`   | Library to send email to user.                                          |
-
-<br></br>
-
-## 📌 Run the project
-```bash
-# Clone the remote repository
-$ git clone https://github.com/marianagsoares/mjv_final_project.git
-
-```
-
-```bash
-# Enter the directory of project
-$ cd back-end-node
-```
-
-```bash
-# Install the dependencies
-$ npm install
-```
-
-```bash
-# Initialize the project using the local database
-$ npm run dev
-
-# Initialize the project using the cloud database
-$ npm start
-```
 
 <br></br>
 ## 🖋 Authoress

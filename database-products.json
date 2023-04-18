@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "643bff51b63eb0191fa5a401"
+  },
+  "name": "clean code",
+  "image": "clean-code-cover-link.png",
+  "description": "A Handbook of Agile Software Craftsmanship",
+  "brand": "pearson",
+  "amount": 1,
+  "code": "9780132350884",
+  "price": 117,
+  "createdAt": "16/04/2023, 10:51:53",
+  "updatedAt": "Not updated",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643c01e66b02132d82e401af"
+  },
+  "name": "grokking algorithms",
+  "image": "grokking-algorithms-cover-link.png",
+  "description": "An Illustrated Guide for Programmers and Other Curious People",
+  "brand": "manning publications",
+  "amount": 2,
+  "code": "9780132350885",
+  "price": 287.86,
+  "createdAt": "16/04/2023, 11:09:14",
+  "updatedAt": "16/04/2023, 11:13:45",
+  "__v": 0
+}]

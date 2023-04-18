@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "643e8ee9972484c4e83d2cee"
+  },
+  "fullName": "John Doe Administrador",
+  "birthday": "22-12-1998",
+  "email": "johndoeadm@gmail.com",
+  "password": "$2b$10$.FqdLtYbHMiGswp9wFPSv.UbgGnG6eMve9qSrjfR2mzpZe53jcGB.",
+  "role": "Administrador",
+  "createdAt": "18/04/2023, 09:33:17",
+  "updatedAt": "18/04/2023, 09:41:19",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e8f04972484c4e83d2cf2"
+  },
+  "fullName": "John Doe Colaborador",
+  "birthday": "22-12-1998",
+  "email": "johndoecolab@gmail.com",
+  "password": "$2b$10$AbsqTdl3TZGfug31/tCknORnW6uVH/hoKNuH8gdMDO9fKmj7.BqZy",
+  "role": "Colaborador",
+  "createdAt": "18/04/2023, 09:33:17",
+  "updatedAt": "18/04/2023, 09:42:44",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "643e90dd972484c4e83d2d05"
+  },
+  "fullName": "API MJV",
+  "birthday": "21-03-1998",
+  "email": "apiteste999@gmail.com",
+  "password": "$2b$10$wPyTBwXMq/sMPro9xhrwH.nm2WGgjKaICsG2F8KascTG37Mmd9T4.",
+  "role": "Administrador",
+  "createdAt": "18/04/2023, 09:33:17",
+  "updatedAt": "Not updated",
+  "__v": 0
+}]

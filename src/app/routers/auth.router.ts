@@ -17,10 +17,8 @@ router.post('/authenticate', async (req: Request, res: Response) => {
 });
 
 router.post('/forgot_password', async (req, res) => {
-  const { email } = req.body;
-
   try {
-    await authService.forgotPassword(email);
+    await authService.forgotPassword(req.body);
 
     return res.send({ message: 'Email successfully sent' });
   }catch(error: any){

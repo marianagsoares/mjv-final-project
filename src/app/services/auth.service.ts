@@ -8,7 +8,7 @@ import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
 import userRepository from "../repositories/user.repository";
-import { validateUserAuthentication } from "../schemas/user.schema";
+import { validateUserAuthentication, validateForgotPassword } from "../schemas/user.schema";
 
 class AuthService {
 
@@ -50,8 +50,14 @@ class AuthService {
         });
     }
 
-    async forgotPassword(email: string) {
-        const user = await this.getUserByEmail(email, "");
+    async forgotPassword(user: User) {
+        const {error, value} = validateForgotPassword(user);
+
+        if(error) {
+          throw new BadRequestError(error.details[0].message)
+        }
+
+        const userFoundByEmail = await this.getUserByEmail(user.email, "");
 
         try {
             const token = crypto.randomBytes(10).toString('hex');
@@ -59,14 +65,14 @@ class AuthService {
             const expirationDate = new Date();
             expirationDate.setMinutes(expirationDate.getMinutes() + 30);
 
-            await userRepository.update(user.id, {
+            await userRepository.update(userFoundByEmail.id, {
                 passwordResetToken: token,
                 tokenExpirationDate: expirationDate
             });
 
             transport.sendMail({
                 from: `MJV API <${process.env.EMAIL}>`,
-                to: email,
+                to: user.email,
                 subject: 'Update password',
                 text: 'Email sent by MJV API',
                 html: `Token to change password is ${token}`

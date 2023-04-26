@@ -2,7 +2,7 @@ import Joi from "joi";
 import { User } from "../models/user.model";
 
 const validator = (schema: Joi.ObjectSchema<User>) => (requestBody: User) => 
-    schema.validate(requestBody)
+    schema.validate(requestBody);
 
 const createUserSchema =  Joi.object({
     fullName: Joi.string().min(3).required(),
@@ -25,8 +25,13 @@ const updateUserSchema = Joi.object({
 const authenticateUserSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).max(12).alphanum().required()
-})
+});
+
+const forgotPasswordSchema = Joi.object({
+    email: Joi.string().email().required()
+});
 
 export const validateCreateUser = validator(createUserSchema);
 export const validateUpdateUser = validator(updateUserSchema);
 export const validateUserAuthentication = validator(authenticateUserSchema);
+export const validateForgotPassword = validator(forgotPasswordSchema);

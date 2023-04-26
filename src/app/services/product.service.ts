@@ -3,7 +3,7 @@ import { Product } from "../models/product.model";
 import productsRepository from "../repositories/product.repository";
 import productRepository from "../repositories/product.repository";
 import { NotFoundError } from "../errors/notFound.error";
-import { validateCreateProduct } from "../schemas/product.schema";
+import { validateCreateProduct, validateUpdateProduct } from "../schemas/product.schema";
 
 class ProductService {
     async getAllProducts() {
@@ -28,9 +28,8 @@ class ProductService {
     async createProduct(product: Product) {
         const { error, value } = validateCreateProduct(product);
 
-        if (error) {
+        if (error)
             throw new BadRequestError(error.details[0].message)
-        }
 
         const { code } = product;
 
@@ -54,6 +53,9 @@ class ProductService {
     }
 
     async updateProduct(code: string, product: Product) {
+        const { error, value } = validateUpdateProduct(product);
+        if (error)
+            throw new BadRequestError(error.details[0].message)
 
         const { code: codeOnBody } = product
 

@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors/notFound.error";
 import { BadRequestError } from "../errors/badRequest.error";
 import generateToken from "../shared/generateToken";
 import userRepository from "../repositories/user.repository";
-import { validateCreateUser } from "../schemas/user.schema";
+import { validateCreateUser, validateUpdateUser } from "../schemas/user.schema";
 
 class UserService {
     async getAllUsers() {
@@ -64,6 +64,13 @@ class UserService {
     }
 
     async updateUser(id: string, user: User) {
+
+        const {error, value} = validateUpdateUser(user);
+
+        if(error) {
+          throw new BadRequestError(error.details[0].message)
+        }
+
         const { email } = user;
 
         const userFound = await this.getUserById(id);

@@ -8,7 +8,8 @@ import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
 import userRepository from "../repositories/user.repository";
-import { validateUserAuthentication, validateForgotPassword } from "../schemas/user.schema";
+import { validateUserAuthentication, validateForgotPassword, validateResetPassword } from "../schemas/user.schema";
+import { ICredentials } from "../models/credentials.model";
 
 class AuthService {
 
@@ -82,23 +83,30 @@ class AuthService {
         }
     }
 
-    async resetPassword(credentials: any) {
+    async resetPassword(credentials: ICredentials) {
+
+        const {error, value} = validateResetPassword(credentials);
+
+        if(error) {
+          throw new BadRequestError(error.details[0].message)
+        }
+
         const { email, password, token } = credentials;
 
         const additionalInfo = '+passwordResetToken tokenExpirationDate';
-        const user = await this.getUserByEmail(email, additionalInfo);
+        const useraFoundByEmail = await this.getUserByEmail(email, additionalInfo);
 
-        if (token != user.passwordResetToken!)
+        if (token != useraFoundByEmail.passwordResetToken!)
             throw new BadRequestError('Invalid token');
 
         const now = new Date();
 
-        if (now > user.tokenExpirationDate!)
+        if (now > useraFoundByEmail.tokenExpirationDate!)
             throw new BadRequestError('Token expired, generate a new one');
 
         try {
-            user.password = password;
-            await user.save();
+            useraFoundByEmail.password = password;
+            await useraFoundByEmail.save();
         } catch (error) {
             throw new BadRequestError('Unable to update password');
         }

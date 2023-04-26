@@ -1,6 +1,6 @@
 import { BadRequestError } from "../errors/badRequest.error";
 import { NotFoundError } from "../errors/notFound.error";
-import { UnauthorizedError } from "../errors/Unauthorized.error";
+import { UnauthorizedError } from "../errors/unauthorized.error";
 import { User } from "../models/user.model";
 import bcrypt from 'bcrypt';
 import generateToken from "../shared/generateToken";

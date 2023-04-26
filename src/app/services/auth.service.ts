@@ -8,6 +8,8 @@ import '../../config/env';
 import crypto from 'crypto';
 import transport from '../models/mailer.model';
 import userRepository from "../repositories/user.repository";
+import { validateUserAuthentication } from "../schemas/user.schema";
+
 class AuthService {
 
     async getUserByEmail(email: string, additionalInfo: string = '') {
@@ -26,6 +28,12 @@ class AuthService {
     }
 
     async authenticateUser(user: User) {
+        const {error, value} = validateUserAuthentication(user);
+
+        if(error) {
+          throw new BadRequestError(error.details[0].message)
+        }
+
         const { email, password } = user;
 
         const additionalInfo = "+password"

@@ -1,5 +1,4 @@
 import { BadRequestError } from "../errors/badRequest.error";
-import { InsuficientParamsError } from "../errors/insuficientParams.error";
 import { Product } from "../models/product.model";
 import productsRepository from "../repositories/product.repository";
 import productRepository from "../repositories/product.repository";
@@ -31,9 +30,6 @@ class ProductService {
 
     async createProduct(product: Product) {
         const { name, brand, code, description, amount } = product;
-
-        if (!name || !code || !description || !amount || !brand)
-            throw new InsuficientParamsError('Fill the mandatory fields');
 
         const productFound = await productsRepository.getByCode(code);
 

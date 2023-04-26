@@ -1,9 +1,9 @@
 import { User } from "../models/user.model";
 import { NotFoundError } from "../errors/notFound.error";
 import { BadRequestError } from "../errors/badRequest.error";
-import { InsuficientParamsError } from "../errors/insuficientParams.error";
 import generateToken from "../shared/generateToken";
 import userRepository from "../repositories/user.repository";
+import { validateCreateUser } from "../schemas/user.schema";
 
 class UserService {
     async getAllUsers() {
@@ -38,12 +38,14 @@ class UserService {
     }
 
     async createUser(user: User) {
-        const { email } = user;
+        const {error, value} = validateCreateUser(user);
 
-        if (!user) {
-            throw new InsuficientParamsError('Fill the mandatory fields');
+        if(error) {
+          throw new BadRequestError(error.details[0].message)
         }
 
+        const { email } = user;
+        
         const userFound = await this.getUserByEmail(email);
 
         if (userFound)

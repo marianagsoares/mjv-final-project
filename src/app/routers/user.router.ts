@@ -2,9 +2,10 @@ import { Request, Response, Router } from "express";
 import { auth } from '../middleware/auth.middleware';
 import userService from "../services/user.service";
 
+
 const router = Router();
 
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {     
     try {
         const userCreated = await userService.createUser(req.body);
 

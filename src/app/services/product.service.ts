@@ -3,6 +3,7 @@ import { Product } from "../models/product.model";
 import productsRepository from "../repositories/product.repository";
 import productRepository from "../repositories/product.repository";
 import { NotFoundError } from "../errors/notFound.error";
+import { validateCreateProduct } from "../schemas/product.schema";
 
 class ProductService {
     async getAllProducts() {
@@ -12,14 +13,10 @@ class ProductService {
     async getProductByCode(code: string) {
         let productFound;
 
-        if (code.length !== 13) {
-            throw new BadRequestError('Invalid code');
-        }
-
         try {
             productFound = await productsRepository.getByCode(code);
         } catch (error) {
-            throw new BadRequestError ('Unable to get product by code')
+            throw new BadRequestError('Unable to get product by code')
         }
 
         if (!productFound) {
@@ -29,7 +26,13 @@ class ProductService {
     }
 
     async createProduct(product: Product) {
-        const { name, brand, code, description, amount } = product;
+        const { error, value } = validateCreateProduct(product);
+
+        if (error) {
+            throw new BadRequestError(error.details[0].message)
+        }
+
+        const { code } = product;
 
         const productFound = await productsRepository.getByCode(code);
 
@@ -51,10 +54,10 @@ class ProductService {
     }
 
     async updateProduct(code: string, product: Product) {
-        
+
         const { code: codeOnBody } = product
 
-        if(codeOnBody){
+        if (codeOnBody) {
             throw new BadRequestError('Update code is not allowed')
         }
 

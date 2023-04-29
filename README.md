@@ -13,7 +13,7 @@ With this API, businesses can create, get, update and delete user and product. I
 
 ## ⌨️ Try it out
 
-### My API is hosted [here](https://mjv-final-project.onrender.com/) and you can try it out by using its <a href="" target="_blank">[swagger](https://mjv-final-project.onrender.com/api-docs/)</a>.
+### My API is hosted and you can try it out by using its <a href="" target="_blank">[swagger](https://mjv-final-project.onrender.com/api-docs/)</a>.
 
 <br></br>
 

@@ -33,7 +33,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "johndoe@gmail.com",
+                    "email": "johndoeadm@gmail.com",
                     "password": "123456"
                   }
                 }
@@ -76,7 +76,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "johndoe@gmail.com"
+                    "email": "johndoeadm@gmail.com"
                   }
                 }
               }
@@ -118,7 +118,7 @@
               "examples": {
                 "user": {
                   "value": {
-                    "email": "johndoe@gmail.com",
+                    "email": "johndoeadm@gmail.com",
                     "password": "12345678",
                     "token": "0123456789abcdefghij"
                   }
@@ -161,7 +161,7 @@
                   "value": {
                     "fullName": "John Doe",
                     "birthday": "24-12-1998",
-                    "email": "johndoe@gmail.com",
+                    "email": "johndoeadm@gmail.com",
                     "password": "123456",
                     "role": "Administrador"
                   }

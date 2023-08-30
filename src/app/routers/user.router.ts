@@ -20,7 +20,7 @@ router.use(auth);
 router.get("/", async (req: Request, res: Response) => {
     const users = await userService.getAllUsers();
 
-    return res.send(users);
+    return res.send({ users });
 });
 
 router.get("/:id", async (req: Request, res: Response) => {

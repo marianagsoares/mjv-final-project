@@ -1,6 +1,6 @@
-import mongoose, { InferSchemaType, Query, Schema } from 'mongoose';
+import mongoose, { InferSchemaType, Schema } from 'mongoose';
 import moment from 'moment';
-import bcrypt, { genSalt, genSaltSync, hash } from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { BadRequestError } from '../errors/badRequest.error';
 
 const userSchema = new Schema({
